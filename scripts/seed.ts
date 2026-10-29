@@ -229,14 +229,12 @@ async function main() {
         if (values.trackingType === "trackable") {
           const units = await tx.select().from(s.stockItems).where(eq(s.stockItems.variantId, variant.id));
           if (units.length === 0) {
-            await tx
-              .insert(s.stockItems)
-              .values(
-                Array.from({ length: o.stock }, (_, n) => ({
-                  variantId: variant.id,
-                  identifier: `${vValues.name} #${n + 1}`,
-                })),
-              );
+            await tx.insert(s.stockItems).values(
+              Array.from({ length: o.stock }, (_, n) => ({
+                variantId: variant.id,
+                identifier: `${vValues.name} #${n + 1}`,
+              })),
+            );
           }
         }
       }
@@ -244,15 +242,13 @@ async function main() {
       await tx.delete(s.productCollections).where(eq(s.productCollections.productId, prod.id));
       const memberOf = snap.collections.filter((c) => !c.system && c.productBooqableIds.includes(p.booqableId));
       if (memberOf.length) {
-        await tx
-          .insert(s.productCollections)
-          .values(
-            memberOf.map((c) => ({
-              productId: prod.id,
-              collectionId: collectionIds.get(c.booqableId)!,
-              position: p.sortingWeight,
-            })),
-          );
+        await tx.insert(s.productCollections).values(
+          memberOf.map((c) => ({
+            productId: prod.id,
+            collectionId: collectionIds.get(c.booqableId)!,
+            position: p.sortingWeight,
+          })),
+        );
       }
     }
 

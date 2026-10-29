@@ -95,14 +95,12 @@ describe("reserveStock", () => {
   });
 
   it("downtime makes the item unavailable", async () => {
-    await db
-      .insert(downtimes)
-      .values({
-        variantId,
-        quantity: 1,
-        startsAt: new Date("2026-07-11T00:00:00Z"),
-        endsAt: new Date("2026-07-11T23:00:00Z"),
-      });
+    await db.insert(downtimes).values({
+      variantId,
+      quantity: 1,
+      startsAt: new Date("2026-07-11T00:00:00Z"),
+      endsAt: new Date("2026-07-11T23:00:00Z"),
+    });
     await expect(reserve(await newOrder(), 1)).rejects.toBeInstanceOf(ShortageError);
   });
 

@@ -16,7 +16,7 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "db:seed": "tsx scripts/seed.ts",
     "db:snapshot": "NODE_USE_ENV_PROXY=1 tsx scripts/booqable-snapshot.ts",
-    "vercel-build": "tsx scripts/migrate.ts && tsx scripts/seed.ts && next build",
+    "vercel-build": "tsx scripts/migrate.ts && tsx scripts/seed.ts && tsx scripts/import-booqable-invoices.ts --from-env && next build",
     "db:import-invoices": "tsx scripts/import-booqable-invoices.ts"
   },
   "dependencies": {

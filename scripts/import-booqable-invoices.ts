@@ -9,11 +9,13 @@
  * - Safe to re-run: bookings that already exist (same Booqable number) are skipped.
  *
  * Usage: npx tsx scripts/import-booqable-invoices.ts data/private/booqable-invoices.json [--dry-run]
+ *    or: npx tsx scripts/import-booqable-invoices.ts --from-env  (see below)
  */
 import { config } from "dotenv";
 config({ path: ".env.local" });
 
 import { readFileSync } from "node:fs";
+import { gunzipSync } from "node:zlib";
 
 type InvoiceLine = { qty: number; title: string | null; rawTitle: string; label: string; unit: number; total: number };
 type Invoice = {
@@ -42,8 +44,13 @@ const knownTimes: Record<number, [string, string]> = { 139: ["19:00", "19:00"] }
 
 async function main() {
   const [file, flag] = process.argv.slice(2);
+  // `--from-env` (used by vercel-build): the JSON comes gzipped + base64 in BOOQABLE_IMPORT_B64,
+  // a temporary Sensitive variable, because the cloud workspace cannot reach the database.
+  // Without the variable this is a no-op; BOOQABLE_IMPORT_MODE=apply writes, anything else is a dry run.
+  const fromEnv = file === "--from-env";
+  if (fromEnv && !process.env.BOOQABLE_IMPORT_B64) return process.exit(0);
   if (!file) throw new Error("Pass the path to the parsed invoices JSON");
-  const dryRun = flag === "--dry-run";
+  const dryRun = fromEnv ? process.env.BOOQABLE_IMPORT_MODE !== "apply" : flag === "--dry-run";
   const { db } = await import("../src/db");
   const s = await import("../src/db/schema");
   const { blindIndex } = await import("../src/lib/crypto");
@@ -52,7 +59,12 @@ async function main() {
   const { loadSettings } = await import("../src/lib/settings");
   const { eq, sql } = await import("drizzle-orm");
 
-  const invoices: Invoice[] = JSON.parse(readFileSync(file, "utf8"));
+  const invoices: Invoice[] = JSON.parse(
+    fromEnv
+      ? gunzipSync(Buffer.from(process.env.BOOQABLE_IMPORT_B64!, "base64")).toString("utf8")
+      : readFileSync(file, "utf8"),
+  );
+  console.log(`Booqable import: ${invoices.length} invoices, ${dryRun ? "dry run" : "APPLY"}`);
   const settings = await loadSettings(db);
   const tz = settings.business.timezone;
   const now = new Date();

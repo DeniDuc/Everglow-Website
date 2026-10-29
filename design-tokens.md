@@ -25,7 +25,8 @@ Source: the live everglowet.com Booqable theme (CSS variables in the page source
 | `sand-100` | #F7EBD3 | `--background-accent`, browser theme colour |
 | `sand-200` | #EFDAB0 | accent (set 3) |
 | `gold-300` | #D5BF96 | outline / logo gold (decorative only) |
-| `gold-500` | #B8975C | eyebrows, icons |
+| `gold-500` | #B8975C | icons, decorative |
+| `gold-600` | #8C6B35 | script eyebrows (passes 3:1 for large text on sand) |
 | `gold-700` | #7D5F2C | prices and links — darker than the old #D5BF96 so text passes WCAG AA |
 | `line` | #23190526 | borders (`--color-border`) |
 

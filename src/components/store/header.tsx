@@ -109,11 +109,15 @@ export function Header({ nav, searchItems, phone }: { nav: NavItem[]; searchItem
               type="button"
               onClick={() => setSearchOpen(true)}
               className="group flex h-11 items-center gap-2 rounded-full px-3 text-ink-soft transition-colors hover:bg-sand-50 hover:text-ink"
-              aria-label="Search rentals"
             >
-              <Search className="size-5" />
-              <span className="hidden text-sm xl:inline">Search</span>
-              <kbd className="hidden rounded border border-line px-1.5 text-[0.7rem] text-ink-muted xl:inline">⌘K</kbd>
+              <Search className="size-5" aria-hidden="true" />
+              <span className="sr-only text-sm xl:not-sr-only">Search</span>
+              <kbd
+                aria-hidden="true"
+                className="hidden rounded border border-line px-1.5 text-[0.7rem] text-ink-muted xl:inline"
+              >
+                ⌘K
+              </kbd>
             </button>
             <button
               type="button"

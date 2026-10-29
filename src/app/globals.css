@@ -20,6 +20,7 @@
   --color-sand-200: #efdab0;
   --color-gold-300: #d5bf96;
   --color-gold-500: #b8975c;
+  --color-gold-600: #8c6b35;
   --color-gold-700: #7d5f2c;
   --color-line: #23190526;
   --color-success: #2f7a3e;
@@ -126,7 +127,8 @@
   }
   .eyebrow {
     font-family: var(--font-script);
-    color: var(--color-gold-500);
+    /* Darker than the old #D5BF96 so the script still reads well (3:1+ on sand backgrounds). */
+    color: #8c6b35; /* gold-600 */
     font-size: clamp(1.75rem, 3vw, 2.5rem);
     line-height: 1;
   }

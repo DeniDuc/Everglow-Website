@@ -44,6 +44,10 @@ export function Gallery({ photos, name }: { photos: { src: string; alt: string }
         <div
           ref={track}
           className="no-scrollbar flex aspect-square snap-x snap-mandatory overflow-x-auto"
+          tabIndex={0}
+          role="group"
+          aria-roledescription="carousel"
+          aria-label={`${name} photos`}
           onScroll={(e) => {
             const el = e.currentTarget;
             const i = Math.round(el.scrollLeft / el.clientWidth);

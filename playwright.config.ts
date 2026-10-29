@@ -19,7 +19,7 @@ export default defineConfig({
   },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"] } },
-    { name: "mobile", use: { ...devices["Pixel 7"] }, testMatch: /storefront/ },
+    { name: "mobile", use: { ...devices["Pixel 7"] }, testMatch: /storefront\.spec/ },
   ],
   webServer: {
     command: `npx next start -p ${port}`,

@@ -43,7 +43,10 @@ type Snapshot = {
  * Operational facts the storefront data does not carry. Stock counts are placeholders until
  * the Booqable CSV export is imported (products are flagged "stock to confirm" in admin).
  */
-const ops: Record<string, { stock: number; points: number; minTier?: string; requiresDelivery?: boolean; featured?: boolean }> = {
+const ops: Record<
+  string,
+  { stock: number; points: number; minTier?: string; requiresDelivery?: boolean; featured?: boolean }
+> = {
   "20x20-marquee-tent": { stock: 1, points: 80, minTier: "medium", requiresDelivery: true, featured: true },
   "20x40-marquee-tent": { stock: 1, points: 160, minTier: "large", requiresDelivery: true, featured: true },
   "20x60-marquee-tent": { stock: 1, points: 240, minTier: "large", requiresDelivery: true, featured: true },
@@ -70,7 +73,12 @@ const skipSlugs = new Set(["customer-pickup-free-not-aplicable-for-tents"]);
 
 function excerpt(html: string | null): string | null {
   if (!html) return null;
-  const text = html.replace(/<br\s*\/?>/g, " ").replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  const text = html
+    .replace(/<br\s*\/?>/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
   if (text.length <= 160) return text;
   return text.slice(0, 157).replace(/\s+\S*$/, "") + "…";
 }
@@ -82,8 +90,12 @@ async function main() {
   const { hashPassword } = await import("../src/lib/auth/password");
   const root = path.resolve(__dirname, "..");
   const snap: Snapshot = JSON.parse(readFileSync(path.join(root, "data/booqable/catalog.json"), "utf8"));
-  const faq: { question: string; answerHtml: string }[] = JSON.parse(readFileSync(path.join(root, "data/content/faq.json"), "utf8"));
-  const pages: { slug: string; title: string; bodyHtml: string }[] = JSON.parse(readFileSync(path.join(root, "data/content/pages.json"), "utf8"));
+  const faq: { question: string; answerHtml: string }[] = JSON.parse(
+    readFileSync(path.join(root, "data/content/faq.json"), "utf8"),
+  );
+  const pages: { slug: string; title: string; bodyHtml: string }[] = JSON.parse(
+    readFileSync(path.join(root, "data/content/pages.json"), "utf8"),
+  );
 
   await db.transaction(async (tx) => {
     // Settings: insert defaults, never overwrite the owner's values.
@@ -92,15 +104,41 @@ async function main() {
     }
 
     const tiers = [
-      { code: "small", name: "Small Delivery & Pickup", priceCents: 8000, maxPoints: 60, position: 1, description: "For orders that fit in a standard SUV. Example: several tables or up to 50 chairs." },
-      { code: "medium", name: "Medium Delivery & Pickup", priceCents: 12000, maxPoints: 200, position: 2, description: "For medium-sized orders that require a larger vehicle. Example: one 20′ × 20′ tent with additional tables or chairs." },
-      { code: "large", name: "Large Delivery & Pickup", priceCents: 20000, maxPoints: null, position: 3, description: "For large orders requiring multiple vehicles or additional staff. Example: large tents or high-volume orders with many tables and chairs." },
+      {
+        code: "small",
+        name: "Small Delivery & Pickup",
+        priceCents: 8000,
+        maxPoints: 60,
+        position: 1,
+        description: "For orders that fit in a standard SUV. Example: several tables or up to 50 chairs.",
+      },
+      {
+        code: "medium",
+        name: "Medium Delivery & Pickup",
+        priceCents: 12000,
+        maxPoints: 200,
+        position: 2,
+        description:
+          "For medium-sized orders that require a larger vehicle. Example: one 20′ × 20′ tent with additional tables or chairs.",
+      },
+      {
+        code: "large",
+        name: "Large Delivery & Pickup",
+        priceCents: 20000,
+        maxPoints: null,
+        position: 3,
+        description:
+          "For large orders requiring multiple vehicles or additional staff. Example: large tents or high-volume orders with many tables and chairs.",
+      },
     ];
     for (const t of tiers) await tx.insert(s.deliveryTiers).values(t).onConflictDoNothing();
-    await tx.insert(s.taxRates).values([
-      { name: "GST", rateBp: 500, active: false, position: 1 },
-      { name: "PST (MB)", rateBp: 700, active: false, position: 2 },
-    ]).onConflictDoNothing();
+    await tx
+      .insert(s.taxRates)
+      .values([
+        { name: "GST", rateBp: 500, active: false, position: 1 },
+        { name: "PST (MB)", rateBp: 700, active: false, position: 2 },
+      ])
+      .onConflictDoNothing();
 
     if ((await tx.select({ n: sql<number>`count(*)::int` }).from(s.faqItems))[0].n === 0) {
       await tx.insert(s.faqItems).values(faq.map((f, i) => ({ ...f, position: i + 1 })));
@@ -139,7 +177,12 @@ async function main() {
         slug: p.slug,
         name: p.name,
         productType: p.productType === "service" ? ("service" as const) : ("rental" as const),
-        trackingType: p.trackingType === "trackable" ? ("trackable" as const) : p.trackingType === "none" ? ("none" as const) : ("bulk" as const),
+        trackingType:
+          p.trackingType === "trackable"
+            ? ("trackable" as const)
+            : p.trackingType === "none"
+              ? ("none" as const)
+              : ("bulk" as const),
         descriptionHtml: (p.descriptionHtml ?? "").replace(/Winnipieg/g, "Winnipeg"),
         excerpt: excerpt(p.descriptionHtml),
         priceType: "structure" as const,
@@ -160,9 +203,11 @@ async function main() {
 
       await tx.delete(s.productPhotos).where(eq(s.productPhotos.productId, prod.id));
       if (p.images.length) {
-        await tx.insert(s.productPhotos).values(
-          p.images.map((img, i) => ({ productId: prod.id, src: img.src, alt: img.alt ?? p.name, position: i })),
-        );
+        await tx
+          .insert(s.productPhotos)
+          .values(
+            p.images.map((img, i) => ({ productId: prod.id, src: img.src, alt: img.alt ?? p.name, position: i })),
+          );
       }
 
       const multi = p.variants.length > 1;
@@ -184,9 +229,14 @@ async function main() {
         if (values.trackingType === "trackable") {
           const units = await tx.select().from(s.stockItems).where(eq(s.stockItems.variantId, variant.id));
           if (units.length === 0) {
-            await tx.insert(s.stockItems).values(
-              Array.from({ length: o.stock }, (_, n) => ({ variantId: variant.id, identifier: `${vValues.name} #${n + 1}` })),
-            );
+            await tx
+              .insert(s.stockItems)
+              .values(
+                Array.from({ length: o.stock }, (_, n) => ({
+                  variantId: variant.id,
+                  identifier: `${vValues.name} #${n + 1}`,
+                })),
+              );
           }
         }
       }
@@ -194,9 +244,15 @@ async function main() {
       await tx.delete(s.productCollections).where(eq(s.productCollections.productId, prod.id));
       const memberOf = snap.collections.filter((c) => !c.system && c.productBooqableIds.includes(p.booqableId));
       if (memberOf.length) {
-        await tx.insert(s.productCollections).values(
-          memberOf.map((c) => ({ productId: prod.id, collectionId: collectionIds.get(c.booqableId)!, position: p.sortingWeight })),
-        );
+        await tx
+          .insert(s.productCollections)
+          .values(
+            memberOf.map((c) => ({
+              productId: prod.id,
+              collectionId: collectionIds.get(c.booqableId)!,
+              position: p.sortingWeight,
+            })),
+          );
       }
     }
 

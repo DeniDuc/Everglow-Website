@@ -1,6 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, CalendarCheck, CreditCard, PackageCheck, ShieldCheck, Sparkles, Tent, Truck } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  CalendarCheck,
+  CreditCard,
+  PackageCheck,
+  ShieldCheck,
+  Sparkles,
+  Tent,
+  Truck,
+} from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Carousel } from "@/components/store/carousel";
@@ -29,16 +39,32 @@ export default async function HomePage() {
 
   const benefits = [
     { icon: PackageCheck, title: "Free self-pickup", text: "Pick up and return most items yourself at no charge." },
-    { icon: Truck, title: smallestDelivery ? `Delivery from ${money(smallestDelivery)}` : "Delivery available", text: "Curbside delivery across Winnipeg. Tents are delivered and installed." },
+    {
+      icon: Truck,
+      title: smallestDelivery ? `Delivery from ${money(smallestDelivery)}` : "Delivery available",
+      text: "Curbside delivery across Winnipeg. Tents are delivered and installed.",
+    },
     { icon: Tent, title: "Tent setup included", text: "Our crew installs and takes down every marquee tent." },
     { icon: CalendarCheck, title: "Book online 24/7", text: "Live availability, instant booking with a 50% deposit." },
   ];
 
   const steps = [
-    { icon: CalendarCheck, title: "Pick your dates", text: "Choose pickup and return. Most items are one price for up to 3 days." },
+    {
+      icon: CalendarCheck,
+      title: "Pick your dates",
+      text: "Choose pickup and return. Most items are one price for up to 3 days.",
+    },
     { icon: Sparkles, title: "Add your rentals", text: "See live availability for your dates while you shop." },
-    { icon: Truck, title: "Pickup or delivery", text: "Pick up for free, or let us deliver. We call the Sunday before with exact times." },
-    { icon: CreditCard, title: "Pay 50% to book", text: "Secure your booking online. The balance is due 14 days before the event." },
+    {
+      icon: Truck,
+      title: "Pickup or delivery",
+      text: "Pick up for free, or let us deliver. We call the Sunday before with exact times.",
+    },
+    {
+      icon: CreditCard,
+      title: "Pay 50% to book",
+      text: "Secure your booking online. The balance is due 14 days before the event.",
+    },
   ];
 
   return (
@@ -59,7 +85,9 @@ export default async function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/35 to-ink/70" />
           <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 pb-16 text-center text-cream">
-            <p className="animate-fade-up font-script text-3xl text-sand-200 md:text-4xl">Everglow Events &amp; Tents</p>
+            <p className="animate-fade-up font-script text-3xl text-sand-200 md:text-4xl">
+              Everglow Events &amp; Tents
+            </p>
             <h1 className="heading-xl mt-3 max-w-3xl animate-fade-up text-balance uppercase [animation-delay:120ms]">
               Make every moment glow
             </h1>
@@ -70,7 +98,10 @@ export default async function HomePage() {
               <Link href="/pages/catalogue" className="btn btn-sand px-6">
                 Check out products <ArrowRight className="size-4" />
               </Link>
-              <a href={`tel:${settings.business.phone.replace(/[^\d+]/g, "")}`} className="btn border border-cream/40 px-6 text-cream backdrop-blur hover:bg-cream/10">
+              <a
+                href={`tel:${settings.business.phone.replace(/[^\d+]/g, "")}`}
+                className="btn border border-cream/40 px-6 text-cream backdrop-blur hover:bg-cream/10"
+              >
                 Call {settings.business.phone}
               </a>
             </div>
@@ -113,10 +144,24 @@ export default async function HomePage() {
         </Reveal>
         <ul className="mt-10 grid auto-rows-[220px] gap-4 sm:grid-cols-2 md:auto-rows-[260px] lg:grid-cols-4">
           {tiles.map((c, i) => (
-            <Reveal as="li" key={c.slug} delay={i * 0.08} className={i === 0 ? "sm:col-span-2 sm:row-span-2" : i === 3 ? "sm:col-span-2" : ""}>
-              <Link href={`/collections/${c.slug}`} className="group relative block h-full overflow-hidden rounded-[var(--radius-card)] bg-sand-100">
+            <Reveal
+              as="li"
+              key={c.slug}
+              delay={i * 0.08}
+              className={i === 0 ? "sm:col-span-2 sm:row-span-2" : i === 3 ? "sm:col-span-2" : ""}
+            >
+              <Link
+                href={`/collections/${c.slug}`}
+                className="group relative block h-full overflow-hidden rounded-[var(--radius-card)] bg-sand-100"
+              >
                 {c.image && (
-                  <Image src={c.image} alt="" fill sizes="(max-width: 640px) 100vw, 50vw" className="object-cover transition-transform duration-[1.2s] ease-[var(--ease-out-soft)] group-hover:scale-[1.06]" />
+                  <Image
+                    src={c.image}
+                    alt=""
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-[1.2s] ease-[var(--ease-out-soft)] group-hover:scale-[1.06]"
+                  />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/10 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 text-cream md:p-6">
@@ -141,12 +186,17 @@ export default async function HomePage() {
             <SectionHeading eyebrow="Easy as" title="How booking works" align="center" />
           </Reveal>
           <ol className="relative mt-12 grid gap-6 md:grid-cols-4">
-            <div className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-px bg-gradient-to-r from-gold-300 via-sand-200 to-gold-300 md:block" aria-hidden="true" />
+            <div
+              className="absolute left-[12.5%] right-[12.5%] top-7 hidden h-px bg-gradient-to-r from-gold-300 via-sand-200 to-gold-300 md:block"
+              aria-hidden="true"
+            />
             {steps.map((s, i) => (
               <Reveal as="li" key={s.title} delay={i * 0.1} className="relative text-center">
                 <span className="relative mx-auto flex size-14 items-center justify-center rounded-full border border-gold-300 bg-cream">
                   <s.icon className="size-6 text-gold-700" />
-                  <span className="absolute -right-1 -top-1 flex size-6 items-center justify-center rounded-full bg-ink text-xs font-semibold text-cream">{i + 1}</span>
+                  <span className="absolute -right-1 -top-1 flex size-6 items-center justify-center rounded-full bg-ink text-xs font-semibold text-cream">
+                    {i + 1}
+                  </span>
                 </span>
                 <h3 className="mt-4 font-display text-2xl">{s.title}</h3>
                 <p className="mx-auto mt-2 max-w-60 text-sm leading-relaxed text-ink-muted">{s.text}</p>
@@ -204,7 +254,9 @@ export default async function HomePage() {
             <h2 id="faq-heading" className="heading-lg">
               Frequently asked questions
             </h2>
-            <p className="mt-4 text-ink-soft">Explore the FAQs to ensure you&apos;re well-prepared to embark on your event journey with us.</p>
+            <p className="mt-4 text-ink-soft">
+              Explore the FAQs to ensure you&apos;re well-prepared to embark on your event journey with us.
+            </p>
             <div className="mt-8 rounded-2xl bg-white p-5 shadow-soft">
               <p className="font-semibold">Still have a question?</p>
               <p className="mt-1 text-sm text-ink-muted">We&apos;re happy to help you plan.</p>

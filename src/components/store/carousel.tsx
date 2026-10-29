@@ -46,13 +46,30 @@ export function Carousel({ children, label }: { children: React.ReactNode[]; lab
       </ul>
       <div className="mt-6 flex items-center gap-6">
         <div className="h-1 flex-1 overflow-hidden rounded-full bg-sand-100" aria-hidden="true">
-          <div className="h-full rounded-full bg-gold-500 transition-[width] duration-200" style={{ width: `${Math.max(12, progress * 100)}%` }} />
+          <div
+            className="h-full rounded-full bg-gold-500 transition-[width] duration-200"
+            style={{ width: `${Math.max(12, progress * 100)}%` }}
+          />
         </div>
         <div className="flex gap-2">
-          <button type="button" onClick={() => scroll(-1)} disabled={!canPrev} className={cn("flex size-11 items-center justify-center rounded-full border border-line bg-white transition hover:shadow-soft disabled:opacity-40")} aria-label="Previous items">
+          <button
+            type="button"
+            onClick={() => scroll(-1)}
+            disabled={!canPrev}
+            className={cn(
+              "flex size-11 items-center justify-center rounded-full border border-line bg-white transition hover:shadow-soft disabled:opacity-40",
+            )}
+            aria-label="Previous items"
+          >
             <ArrowLeft className="size-5" />
           </button>
-          <button type="button" onClick={() => scroll(1)} disabled={!canNext} className="flex size-11 items-center justify-center rounded-full border border-line bg-white transition hover:shadow-soft disabled:opacity-40" aria-label="Next items">
+          <button
+            type="button"
+            onClick={() => scroll(1)}
+            disabled={!canNext}
+            className="flex size-11 items-center justify-center rounded-full border border-line bg-white transition hover:shadow-soft disabled:opacity-40"
+            aria-label="Next items"
+          >
             <ArrowRight className="size-5" />
           </button>
         </div>

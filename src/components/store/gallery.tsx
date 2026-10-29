@@ -31,7 +31,11 @@ export function Gallery({ photos, name }: { photos: { src: string; alt: string }
   }, [zoom, count]);
 
   if (count === 0) {
-    return <div className="flex aspect-square items-center justify-center rounded-3xl bg-white text-ink-muted">Photo coming soon</div>;
+    return (
+      <div className="flex aspect-square items-center justify-center rounded-3xl bg-white text-ink-muted">
+        Photo coming soon
+      </div>
+    );
   }
 
   return (
@@ -69,15 +73,28 @@ export function Gallery({ photos, name }: { photos: { src: string; alt: string }
         </button>
         {count > 1 && (
           <>
-            <button type="button" onClick={() => go(index - 1)} className="absolute left-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-soft backdrop-blur transition hover:scale-105" aria-label="Previous photo">
+            <button
+              type="button"
+              onClick={() => go(index - 1)}
+              className="absolute left-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-soft backdrop-blur transition hover:scale-105"
+              aria-label="Previous photo"
+            >
               <ChevronLeft className="size-5" />
             </button>
-            <button type="button" onClick={() => go(index + 1)} className="absolute right-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-soft backdrop-blur transition hover:scale-105" aria-label="Next photo">
+            <button
+              type="button"
+              onClick={() => go(index + 1)}
+              className="absolute right-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-soft backdrop-blur transition hover:scale-105"
+              aria-label="Next photo"
+            >
               <ChevronRight className="size-5" />
             </button>
             <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5 md:hidden" aria-hidden="true">
               {photos.map((p, i) => (
-                <span key={p.src} className={cn("h-1.5 rounded-full bg-ink/25 transition-all", i === index ? "w-5 bg-ink" : "w-1.5")} />
+                <span
+                  key={p.src}
+                  className={cn("h-1.5 rounded-full bg-ink/25 transition-all", i === index ? "w-5 bg-ink" : "w-1.5")}
+                />
               ))}
             </div>
           </>
@@ -92,7 +109,10 @@ export function Gallery({ photos, name }: { photos: { src: string; alt: string }
                 onClick={() => go(i)}
                 aria-label={`Show photo ${i + 1}`}
                 aria-current={i === index}
-                className={cn("relative block size-20 overflow-hidden rounded-xl border-2 bg-white transition", i === index ? "border-gold-500" : "border-transparent opacity-70 hover:opacity-100")}
+                className={cn(
+                  "relative block size-20 overflow-hidden rounded-xl border-2 bg-white transition",
+                  i === index ? "border-gold-500" : "border-transparent opacity-70 hover:opacity-100",
+                )}
               >
                 <Image src={p.src} alt="" fill sizes="80px" className="object-cover" />
               </button>
@@ -113,10 +133,21 @@ export function Gallery({ photos, name }: { photos: { src: string; alt: string }
             aria-modal="true"
             aria-label={`${name} photos`}
           >
-            <motion.div key={index} initial={{ scale: 0.96, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="relative h-full max-h-[85vh] w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
+            <motion.div
+              key={index}
+              initial={{ scale: 0.96, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="relative h-full max-h-[85vh] w-full max-w-5xl"
+              onClick={(e) => e.stopPropagation()}
+            >
               <Image src={photos[index].src} alt={photos[index].alt} fill sizes="100vw" className="object-contain" />
             </motion.div>
-            <button type="button" className="absolute right-4 top-4 rounded-full bg-white/10 p-3 text-white" onClick={() => setZoom(false)} aria-label="Close">
+            <button
+              type="button"
+              className="absolute right-4 top-4 rounded-full bg-white/10 p-3 text-white"
+              onClick={() => setZoom(false)}
+              aria-label="Close"
+            >
               <X className="size-6" />
             </button>
             {count > 1 && (

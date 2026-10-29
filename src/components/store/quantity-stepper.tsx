@@ -24,7 +24,10 @@ export function QuantityStepper({
     <div className={cn("inline-flex items-center rounded-full border border-line bg-white", h)}>
       <button
         type="button"
-        className={cn("flex h-full items-center justify-center rounded-l-full text-ink-soft transition-colors hover:bg-sand-50 disabled:opacity-30", w)}
+        className={cn(
+          "flex h-full items-center justify-center rounded-l-full text-ink-soft transition-colors hover:bg-sand-50 disabled:opacity-30",
+          w,
+        )}
         onClick={() => onChange(Math.max(min, value - 1))}
         disabled={value <= min}
         aria-label={`Decrease ${label.toLowerCase()}`}
@@ -46,7 +49,10 @@ export function QuantityStepper({
       />
       <button
         type="button"
-        className={cn("flex h-full items-center justify-center rounded-r-full text-ink-soft transition-colors hover:bg-sand-50 disabled:opacity-30", w)}
+        className={cn(
+          "flex h-full items-center justify-center rounded-r-full text-ink-soft transition-colors hover:bg-sand-50 disabled:opacity-30",
+          w,
+        )}
         onClick={() => onChange(max != null ? Math.min(max, value + 1) : value + 1)}
         disabled={max != null && value >= max}
         aria-label={`Increase ${label.toLowerCase()}`}

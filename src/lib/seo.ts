@@ -49,7 +49,12 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: items.map((i, idx) => ({ "@type": "ListItem", position: idx + 1, name: i.name, item: absoluteUrl(i.path) })),
+    itemListElement: items.map((i, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: i.name,
+      item: absoluteUrl(i.path),
+    })),
   };
 }
 

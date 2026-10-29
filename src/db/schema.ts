@@ -232,7 +232,10 @@ export const products = pgTable(
     showInStore: boolean("show_in_store").notNull().default(true),
     featured: boolean("featured").notNull().default(false),
     sortingWeight: integer("sorting_weight").notNull().default(0),
-    tags: text("tags").array().notNull().default(sql`'{}'::text[]`),
+    tags: text("tags")
+      .array()
+      .notNull()
+      .default(sql`'{}'::text[]`),
     seoTitle: text("seo_title"),
     seoDescription: text("seo_description"),
     /** Free-form internal fields: purchase price, warehouse location, weight, footprint… */
@@ -254,7 +257,10 @@ export const productVariants = pgTable(
       .references(() => products.id, { onDelete: "cascade" }),
     name: text("name").notNull(),
     /** Option values, e.g. ["White"]; empty for the single default variant. */
-    options: text("options").array().notNull().default(sql`'{}'::text[]`),
+    options: text("options")
+      .array()
+      .notNull()
+      .default(sql`'{}'::text[]`),
     sku: text("sku"),
     basePriceCents: integer("base_price_cents").notNull().default(0),
     /** Bulk stock quantity. For trackable products stock is counted from stock_items. */
@@ -360,7 +366,10 @@ export const customers = pgTable(
     address: encryptedText("address"),
     notes: encryptedText("notes"),
     source: customerSource("source").notNull().default("website"),
-    tags: text("tags").array().notNull().default(sql`'{}'::text[]`),
+    tags: text("tags")
+      .array()
+      .notNull()
+      .default(sql`'{}'::text[]`),
     discountBp: integer("discount_bp").notNull().default(0),
     marketingOptIn: boolean("marketing_opt_in").notNull().default(false),
     booqableId: text("booqable_id").unique(),
@@ -423,7 +432,10 @@ export const orders = pgTable(
     paidCents: integer("paid_cents").notNull().default(0),
     /** Event details: guests, venue type, site notes (encrypted JSON). */
     eventDetails: encryptedText("event_details"),
-    tags: text("tags").array().notNull().default(sql`'{}'::text[]`),
+    tags: text("tags")
+      .array()
+      .notNull()
+      .default(sql`'{}'::text[]`),
     source: customerSource("source").notNull().default("website"),
     /** Public token for the customer's order page (/order/<token>). */
     publicToken: text("public_token").unique(),

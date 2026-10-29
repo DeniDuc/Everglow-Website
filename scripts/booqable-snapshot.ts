@@ -75,13 +75,9 @@ async function main() {
   const collections = await api<Collection>("collections?page[size]=100");
   const membership: Record<string, string[]> = {};
   for (const c of collections.data) {
-    const res = await api<{ product_group_id?: string }>(
-      `items?filter[collection_id]=${c.id}&page[size]=200`,
-    );
+    const res = await api<{ product_group_id?: string }>(`items?filter[collection_id]=${c.id}&page[size]=200`);
     membership[c.id] = [
-      ...new Set(
-        res.data.map((d) => (d.type === "products" ? d.attributes.product_group_id! : d.id)),
-      ),
+      ...new Set(res.data.map((d) => (d.type === "products" ? d.attributes.product_group_id! : d.id))),
     ];
   }
 

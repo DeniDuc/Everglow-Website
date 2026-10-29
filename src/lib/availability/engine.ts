@@ -51,7 +51,12 @@ export function peakUsage(claims: Claim[], window: Range): number {
 }
 
 /** Units of one variant still free during `window` (may be negative when overbooked). */
-export function availableQuantity(input: { stock: number; claims: Claim[]; downtimes: Claim[]; window: Range }): number {
+export function availableQuantity(input: {
+  stock: number;
+  claims: Claim[];
+  downtimes: Claim[];
+  window: Range;
+}): number {
   return input.stock - peakUsage([...input.claims, ...input.downtimes], input.window);
 }
 

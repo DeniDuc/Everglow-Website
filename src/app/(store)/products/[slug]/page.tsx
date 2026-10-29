@@ -38,7 +38,9 @@ async function Product({ params }: { params: PageProps<"/products/[slug]">["para
     .filter((x) => x.id !== p.id)
     // Cross-sell: items from other collections first (tables and chairs with a tent), popular first.
     .map((x) => {
-      const sameCollection = x.collectionSlugs.some((s) => s !== "rental-catalogue" && p.collections.some((c) => c.slug === s));
+      const sameCollection = x.collectionSlugs.some(
+        (s) => s !== "rental-catalogue" && p.collections.some((c) => c.slug === s),
+      );
       return { x, score: (sameCollection ? 2 : 0) + (x.featured ? 0 : 1) };
     })
     .sort((a, b) => a.score - b.score || a.x.sortingWeight - b.x.sortingWeight)
@@ -67,15 +69,21 @@ async function Product({ params }: { params: PageProps<"/products/[slug]">["para
       />
       <div className="container-page py-8 md:py-12">
         <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-1.5 text-sm text-ink-muted">
-          <Link href="/pages/catalogue" className="hover:text-ink">Catalogue</Link>
+          <Link href="/pages/catalogue" className="hover:text-ink">
+            Catalogue
+          </Link>
           {main && (
             <>
               <ChevronRight className="size-3.5" />
-              <Link href={`/collections/${main.slug}`} className="hover:text-ink">{main.name}</Link>
+              <Link href={`/collections/${main.slug}`} className="hover:text-ink">
+                {main.name}
+              </Link>
             </>
           )}
           <ChevronRight className="size-3.5" />
-          <span className="text-gold-700" aria-current="page">{p.name}</span>
+          <span className="text-gold-700" aria-current="page">
+            {p.name}
+          </span>
         </nav>
 
         <div className="grid gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-14">

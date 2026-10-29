@@ -20,7 +20,11 @@ export type VariantInfo = {
   allowShortage: boolean;
 };
 
-export async function loadVariantInfo(conn: Conn, variantIds: string[], defaultBufferAfter: number): Promise<Map<string, VariantInfo>> {
+export async function loadVariantInfo(
+  conn: Conn,
+  variantIds: string[],
+  defaultBufferAfter: number,
+): Promise<Map<string, VariantInfo>> {
   if (variantIds.length === 0) return new Map();
   const rows = await conn
     .select({
@@ -157,7 +161,9 @@ export async function productAvailability(
   for (const pid of productIds) {
     const parts = components.filter((c) => c.bundleId === pid);
     if (parts.length > 0) {
-      const n = bundleAvailability(parts.map((c) => ({ available: avail.get(c.variantId) ?? 0, perBundle: c.quantity })));
+      const n = bundleAvailability(
+        parts.map((c) => ({ available: avail.get(c.variantId) ?? 0, perBundle: c.quantity })),
+      );
       out.set(pid, { total: n, variants: {} });
       continue;
     }

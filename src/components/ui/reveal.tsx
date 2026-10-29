@@ -18,7 +18,10 @@ export function Reveal({
   as?: "div" | "section" | "li";
 }) {
   return (
-    <Tag className={cn("reveal", className)} style={delay ? ({ "--reveal-delay": `${Math.round(delay * 100)}%` } as React.CSSProperties) : undefined}>
+    <Tag
+      className={cn("reveal", className)}
+      style={delay ? ({ "--reveal-delay": `${Math.round(delay * 100)}%` } as React.CSSProperties) : undefined}
+    >
       {children}
     </Tag>
   );

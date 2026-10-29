@@ -148,13 +148,19 @@ export function computeQuote(input: QuoteInput): Quote {
     const quantity = Math.max(0, Math.trunc(l.quantity));
     const overridden = l.overrideUnitCents != null;
     const unitCents = overridden ? l.overrideUnitCents! : unitPrice(l.rule, days, rules.extraDayBp);
-    return { key: l.key, title: l.title, kind: l.kind, quantity, unitCents, totalCents: unitCents * quantity, overridden };
+    return {
+      key: l.key,
+      title: l.title,
+      kind: l.kind,
+      quantity,
+      unitCents,
+      totalCents: unitCents * quantity,
+      overridden,
+    };
   });
 
   const subtotalCents = sum(lines.map((l) => l.totalCents));
-  const discountableCents = sum(
-    lines.filter((_, i) => input.lines[i].discountable !== false).map((l) => l.totalCents),
-  );
+  const discountableCents = sum(lines.filter((_, i) => input.lines[i].discountable !== false).map((l) => l.totalCents));
   const discountCents = applyBp(discountableCents, input.discountBp);
 
   // Damage protection: % of the rental items, after the order discount (owner: rentals only, not delivery).
@@ -188,9 +194,7 @@ export function computeQuote(input: QuoteInput): Quote {
   const depositCents = applyBp(totalCents, depositBp);
   const balanceCents = totalCents - depositCents;
   const balanceDueAt =
-    balanceCents > 0
-      ? subDays(new TZDate(input.startsAt.getTime(), input.timezone), rules.balanceDueDaysBefore)
-      : null;
+    balanceCents > 0 ? subDays(new TZDate(input.startsAt.getTime(), input.timezone), rules.balanceDueDaysBefore) : null;
 
   return {
     days,
@@ -238,7 +242,13 @@ export function cancellationRefund(input: {
   return { refundCents: Math.max(0, applyBp(refundable, tier.refundBp)), tier, daysBefore };
 }
 
-export type DeliveryTierOption = { id: string; code: string; priceCents: number; maxPoints: number | null; position: number };
+export type DeliveryTierOption = {
+  id: string;
+  code: string;
+  priceCents: number;
+  maxPoints: number | null;
+  position: number;
+};
 
 /**
  * Suggest the delivery tier from the cart: the smallest tier whose point limit fits

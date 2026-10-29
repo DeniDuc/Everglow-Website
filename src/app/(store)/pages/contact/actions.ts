@@ -17,7 +17,11 @@ const schema = z.object({
   company: z.string().max(0).optional().or(z.literal("")),
 });
 
-export type ContactState = { ok: boolean; errors?: Partial<Record<keyof z.infer<typeof schema>, string>>; message?: string };
+export type ContactState = {
+  ok: boolean;
+  errors?: Partial<Record<keyof z.infer<typeof schema>, string>>;
+  message?: string;
+};
 
 export async function sendInquiry(_prev: ContactState, form: FormData): Promise<ContactState> {
   const parsed = schema.safeParse(Object.fromEntries(form));

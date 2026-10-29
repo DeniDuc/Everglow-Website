@@ -121,7 +121,10 @@ export function BookingProvider({ rules, children }: { rules: BookingRules; chil
   // ----- availability batching -------------------------------------------------
   const watched = useRef(new Map<string, number>());
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const requestKey = periodRange && periodErrors.length === 0 ? `${periodRange.start.toISOString()}|${periodRange.end.toISOString()}` : null;
+  const requestKey =
+    periodRange && periodErrors.length === 0
+      ? `${periodRange.start.toISOString()}|${periodRange.end.toISOString()}`
+      : null;
   const keyRef = useRef(requestKey);
 
   const flush = useCallback(async () => {
@@ -179,7 +182,8 @@ export function BookingProvider({ rules, children }: { rules: BookingRules; chil
   const addToCart = useCallback((item: CartItem) => {
     setCart((prev) => {
       const existing = prev.find((i) => i.variantId === item.variantId);
-      if (existing) return prev.map((i) => (i.variantId === item.variantId ? { ...i, quantity: i.quantity + item.quantity } : i));
+      if (existing)
+        return prev.map((i) => (i.variantId === item.variantId ? { ...i, quantity: i.quantity + item.quantity } : i));
       return [...prev, item];
     });
     setLastAdded({ item, at: Date.now() });
@@ -187,7 +191,9 @@ export function BookingProvider({ rules, children }: { rules: BookingRules; chil
 
   const setQuantity = useCallback((variantId: string, quantity: number) => {
     setCart((prev) =>
-      quantity <= 0 ? prev.filter((i) => i.variantId !== variantId) : prev.map((i) => (i.variantId === variantId ? { ...i, quantity } : i)),
+      quantity <= 0
+        ? prev.filter((i) => i.variantId !== variantId)
+        : prev.map((i) => (i.variantId === variantId ? { ...i, quantity } : i)),
     );
   }, []);
 

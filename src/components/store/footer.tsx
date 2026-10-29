@@ -25,10 +25,22 @@ function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
 export function SocialLinks({ business, className }: { business: Settings["business"]; className?: string }) {
   return (
     <div className={className ?? "flex items-center gap-2"}>
-      <a href={business.facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Everglow on Facebook" className="flex size-10 items-center justify-center rounded-full border border-line bg-white transition-colors hover:border-gold-300 hover:bg-sand-50">
+      <a
+        href={business.facebookUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Everglow on Facebook"
+        className="flex size-10 items-center justify-center rounded-full border border-line bg-white transition-colors hover:border-gold-300 hover:bg-sand-50"
+      >
         <FacebookIcon className="size-5" />
       </a>
-      <a href={business.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Everglow on Instagram" className="flex size-10 items-center justify-center rounded-full border border-line bg-white transition-colors hover:border-gold-300 hover:bg-sand-50">
+      <a
+        href={business.instagramUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Everglow on Instagram"
+        className="flex size-10 items-center justify-center rounded-full border border-line bg-white transition-colors hover:border-gold-300 hover:bg-sand-50"
+      >
         <InstagramIcon className="size-5" />
       </a>
     </div>
@@ -47,7 +59,13 @@ export function Footer({ nav, business }: { nav: NavItem[]; business: Settings["
     <footer className="mt-auto border-t border-line bg-white">
       <div className="container-page grid gap-10 py-14 md:grid-cols-[1.2fr_1fr_1fr_1.2fr]">
         <div>
-          <Image src="/media/site/logo.png" alt="Everglow Events & Tents" width={566} height={222} className="h-14 w-auto" />
+          <Image
+            src="/media/site/logo.png"
+            alt="Everglow Events & Tents"
+            width={566}
+            height={222}
+            className="h-14 w-auto"
+          />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-muted">
             Tents, tables, chairs and event essentials in Winnipeg. {business.tagline}
           </p>
@@ -68,31 +86,59 @@ export function Footer({ nav, business }: { nav: NavItem[]; business: Settings["
         <div>
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-ink-muted">Good to know</h2>
           <ul className="space-y-2.5 text-[0.95rem]">
-            <li><Link href="/#faq" className="text-ink-soft hover:text-gold-700">FAQ</Link></li>
-            <li><Link href="/pages/customer-responsibility" className="text-ink-soft hover:text-gold-700">Customer responsibility</Link></li>
-            <li><Link href="/pages/terms" className="text-ink-soft hover:text-gold-700">Terms &amp; Conditions</Link></li>
-            <li><Link href="/pages/privacy" className="text-ink-soft hover:text-gold-700">Privacy policy</Link></li>
+            <li>
+              <Link href="/#faq" className="text-ink-soft hover:text-gold-700">
+                FAQ
+              </Link>
+            </li>
+            <li>
+              <Link href="/pages/customer-responsibility" className="text-ink-soft hover:text-gold-700">
+                Customer responsibility
+              </Link>
+            </li>
+            <li>
+              <Link href="/pages/terms" className="text-ink-soft hover:text-gold-700">
+                Terms &amp; Conditions
+              </Link>
+            </li>
+            <li>
+              <Link href="/pages/privacy" className="text-ink-soft hover:text-gold-700">
+                Privacy policy
+              </Link>
+            </li>
           </ul>
         </div>
         <address className="not-italic">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-ink-muted">Contact</h2>
           <ul className="space-y-3 text-[0.95rem] text-ink-soft">
             <li>
-              <a href={`tel:${tel}`} className="flex items-center gap-3 hover:text-gold-700"><Phone className="size-4 text-gold-500" />{business.phone}</a>
+              <a href={`tel:${tel}`} className="flex items-center gap-3 hover:text-gold-700">
+                <Phone className="size-4 text-gold-500" />
+                {business.phone}
+              </a>
             </li>
             <li>
-              <a href={`mailto:${business.email}`} className="flex items-center gap-3 break-all hover:text-gold-700"><Mail className="size-4 shrink-0 text-gold-500" />{business.email}</a>
+              <a href={`mailto:${business.email}`} className="flex items-center gap-3 break-all hover:text-gold-700">
+                <Mail className="size-4 shrink-0 text-gold-500" />
+                {business.email}
+              </a>
             </li>
             <li className="flex items-start gap-3">
               <MapPin className="mt-1 size-4 shrink-0 text-gold-500" />
-              <span>{business.street}<br />{business.city}, {business.province} {business.postalCode}</span>
+              <span>
+                {business.street}
+                <br />
+                {business.city}, {business.province} {business.postalCode}
+              </span>
             </li>
           </ul>
         </address>
       </div>
       <div className="border-t border-line">
         <div className="container-page flex flex-col gap-2 py-5 text-sm text-ink-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© <CopyrightYear /> Everglow Events &amp; Tents. All rights reserved.</p>
+          <p>
+            © <CopyrightYear /> Everglow Events &amp; Tents. All rights reserved.
+          </p>
           <p>Proudly serving Winnipeg and surrounding areas.</p>
         </div>
       </div>

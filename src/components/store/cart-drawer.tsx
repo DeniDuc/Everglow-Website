@@ -31,7 +31,12 @@ export function CartDrawer() {
   return (
     <AnimatePresence>
       {cartOpen && (
-        <motion.div className="fixed inset-0 z-[75]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <motion.div
+          className="fixed inset-0 z-[75]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
           <div className="absolute inset-0 bg-ink/30 backdrop-blur-sm" onClick={() => setCartOpen(false)} />
           <motion.aside
             role="dialog"
@@ -45,7 +50,12 @@ export function CartDrawer() {
           >
             <div className="flex items-center justify-between border-b border-line bg-white px-5 py-4">
               <h2 className="font-display text-2xl">Your cart</h2>
-              <button type="button" onClick={() => setCartOpen(false)} className="rounded-full p-2 hover:bg-sand-50" aria-label="Close cart">
+              <button
+                type="button"
+                onClick={() => setCartOpen(false)}
+                className="rounded-full p-2 hover:bg-sand-50"
+                aria-label="Close cart"
+              >
                 <X className="size-5" />
               </button>
             </div>
@@ -76,13 +86,24 @@ export function CartDrawer() {
                           exit={{ opacity: 0, x: 40 }}
                           className="flex gap-3 rounded-2xl border border-line bg-white p-3"
                         >
-                          <Link href={`/products/${item.slug}`} className="relative size-20 shrink-0 overflow-hidden rounded-xl bg-white" onClick={() => setCartOpen(false)}>
-                            {item.image && <Image src={item.image} alt="" fill sizes="80px" className="object-contain p-1" />}
+                          <Link
+                            href={`/products/${item.slug}`}
+                            className="relative size-20 shrink-0 overflow-hidden rounded-xl bg-white"
+                            onClick={() => setCartOpen(false)}
+                          >
+                            {item.image && (
+                              <Image src={item.image} alt="" fill sizes="80px" className="object-contain p-1" />
+                            )}
                           </Link>
                           <div className="min-w-0 flex-1">
                             <div className="flex items-start justify-between gap-2">
                               <p className="font-medium leading-snug">{item.name}</p>
-                              <button type="button" onClick={() => removeFromCart(item.variantId)} className="rounded-full p-1 text-ink-muted hover:bg-sand-50 hover:text-danger" aria-label={`Remove ${item.name}`}>
+                              <button
+                                type="button"
+                                onClick={() => removeFromCart(item.variantId)}
+                                className="rounded-full p-1 text-ink-muted hover:bg-sand-50 hover:text-danger"
+                                aria-label={`Remove ${item.name}`}
+                              >
                                 <Trash2 className="size-4" />
                               </button>
                             </div>
@@ -90,12 +111,19 @@ export function CartDrawer() {
                               {money(item.unitPriceCents)} / {item.priceLabel}
                             </p>
                             <div className="mt-2 flex items-center justify-between">
-                              <QuantityStepper size="sm" value={item.quantity} onChange={(n) => setQuantity(item.variantId, n)} label={`${item.name} quantity`} />
+                              <QuantityStepper
+                                size="sm"
+                                value={item.quantity}
+                                onChange={(n) => setQuantity(item.variantId, n)}
+                                label={`${item.name} quantity`}
+                              />
                               <span className="font-semibold">{money(item.unitPriceCents * item.quantity)}</span>
                             </div>
                             {short !== undefined && (
                               <p className="mt-2 text-xs font-medium text-danger">
-                                {short === 0 ? "Not available for your dates" : `Only ${short} available for your dates`}
+                                {short === 0
+                                  ? "Not available for your dates"
+                                  : `Only ${short} available for your dates`}
                               </p>
                             )}
                           </div>
@@ -106,12 +134,18 @@ export function CartDrawer() {
                 </ul>
                 <div className="space-y-3 border-t border-line bg-white p-5">
                   {!periodRange && (
-                    <button type="button" onClick={openPicker} className="w-full rounded-2xl bg-sand-100 px-4 py-3 text-left text-sm">
+                    <button
+                      type="button"
+                      onClick={openPicker}
+                      className="w-full rounded-2xl bg-sand-100 px-4 py-3 text-left text-sm"
+                    >
                       <strong>Choose your dates</strong> to check availability and the final price.
                     </button>
                   )}
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-ink-muted">Items{data ? ` · ${data.quote.days} ${data.quote.days === 1 ? "day" : "days"}` : ""}</span>
+                    <span className="text-ink-muted">
+                      Items{data ? ` · ${data.quote.days} ${data.quote.days === 1 ? "day" : "days"}` : ""}
+                    </span>
                     <span className="font-semibold">{money(data?.quote.subtotalCents ?? estimate)}</span>
                   </div>
                   {data && (
@@ -120,8 +154,15 @@ export function CartDrawer() {
                       <span>{money(data.quote.damageProtectionCents)}</span>
                     </div>
                   )}
-                  <p className="text-xs text-ink-muted">Delivery options and the 50% deposit are shown on the next step.</p>
-                  <Link href="/cart" onClick={() => setCartOpen(false)} className="btn btn-primary w-full" aria-busy={loading}>
+                  <p className="text-xs text-ink-muted">
+                    Delivery options and the 50% deposit are shown on the next step.
+                  </p>
+                  <Link
+                    href="/cart"
+                    onClick={() => setCartOpen(false)}
+                    className="btn btn-primary w-full"
+                    aria-busy={loading}
+                  >
                     Review cart & delivery
                   </Link>
                 </div>
@@ -157,9 +198,16 @@ export function AddedToast() {
           >
             <CheckCircle2 className="size-5 text-gold-300" />
             <span>
-              Added <strong>{lastAdded.item.quantity} × {lastAdded.item.name}</strong>
+              Added{" "}
+              <strong>
+                {lastAdded.item.quantity} × {lastAdded.item.name}
+              </strong>
             </span>
-            <button type="button" className="rounded-full bg-cream px-3 py-1.5 font-semibold text-ink" onClick={() => setCartOpen(true)}>
+            <button
+              type="button"
+              className="rounded-full bg-cream px-3 py-1.5 font-semibold text-ink"
+              onClick={() => setCartOpen(true)}
+            >
               View cart
             </button>
           </motion.div>

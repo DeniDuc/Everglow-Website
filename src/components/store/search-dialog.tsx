@@ -8,7 +8,14 @@ import { ArrowRight, Search, X } from "lucide-react";
 import { money } from "@/lib/format";
 import { cn } from "@/lib/cn";
 
-export type SearchItem = { slug: string; name: string; image: string | null; priceCents: number; priceLabel: string; keywords: string };
+export type SearchItem = {
+  slug: string;
+  name: string;
+  image: string | null;
+  priceCents: number;
+  priceLabel: string;
+  keywords: string;
+};
 
 /** Instant product search (Cmd/Ctrl+K). The catalogue is small, so it filters on the client. */
 export function SearchDialog({ open, onClose, items }: { open: boolean; onClose: () => void; items: SearchItem[] }) {
@@ -83,19 +90,29 @@ export function SearchDialog({ open, onClose, items }: { open: boolean; onClose:
                 className="h-14 flex-1 bg-transparent text-base outline-none placeholder:text-ink-muted"
                 aria-label="Search"
               />
-              <button type="button" onClick={onClose} className="rounded-full p-2 text-ink-muted hover:bg-sand-50" aria-label="Close search">
+              <button
+                type="button"
+                onClick={onClose}
+                className="rounded-full p-2 text-ink-muted hover:bg-sand-50"
+                aria-label="Close search"
+              >
                 <X className="size-5" />
               </button>
             </div>
             <ul className="max-h-[60vh] overflow-y-auto p-2" role="listbox">
-              {results.length === 0 && <li className="px-4 py-10 text-center text-sm text-ink-muted">Nothing found. Try “tent” or “chair”.</li>}
+              {results.length === 0 && (
+                <li className="px-4 py-10 text-center text-sm text-ink-muted">Nothing found. Try “tent” or “chair”.</li>
+              )}
               {results.map((r, i) => (
                 <li key={r.slug} role="option" aria-selected={i === active}>
                   <button
                     type="button"
                     onMouseEnter={() => setActive(i)}
                     onClick={() => go(r.slug)}
-                    className={cn("flex w-full items-center gap-3 rounded-2xl p-2 text-left transition-colors", i === active && "bg-sand-50")}
+                    className={cn(
+                      "flex w-full items-center gap-3 rounded-2xl p-2 text-left transition-colors",
+                      i === active && "bg-sand-50",
+                    )}
                   >
                     <span className="relative size-12 shrink-0 overflow-hidden rounded-xl bg-sand-50">
                       {r.image && <Image src={r.image} alt="" fill sizes="48px" className="object-cover" />}
@@ -106,7 +123,12 @@ export function SearchDialog({ open, onClose, items }: { open: boolean; onClose:
                         {money(r.priceCents)} · {r.priceLabel}
                       </span>
                     </span>
-                    <ArrowRight className={cn("size-4 text-ink-muted transition-opacity", i === active ? "opacity-100" : "opacity-0")} />
+                    <ArrowRight
+                      className={cn(
+                        "size-4 text-ink-muted transition-opacity",
+                        i === active ? "opacity-100" : "opacity-0",
+                      )}
+                    />
                   </button>
                 </li>
               ))}

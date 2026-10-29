@@ -26,6 +26,16 @@
   --color-warning: #a35d00;
   --color-danger: #b42318;
 
+  /* Admin (Booqable-like) */
+  --color-admin-bg: #edf0f5;
+  --color-admin-line: #dde2ea;
+  --color-admin-text: #1c2430;
+  --color-admin-muted: #687385;
+  --color-admin-blue: #136ef6;
+  --color-admin-blue-dark: #0b5ad1;
+  --color-admin-blue-soft: #e7f0fe;
+  --color-admin-green: #4fcb72;
+
   --radius-card: 1rem;
   --radius-pill: 999px;
 

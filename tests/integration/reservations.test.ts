@@ -19,7 +19,15 @@ async function newOrder() {
 
 async function reserve(orderId: string, quantity: number, extra: Partial<Parameters<typeof reserveStock>[1]> = {}) {
   return db.transaction((tx) =>
-    reserveStock(tx, { orderId, items: [{ variantId, quantity }], startsAt: start, endsAt: end, status: "reserved", ...opts, ...extra }),
+    reserveStock(tx, {
+      orderId,
+      items: [{ variantId, quantity }],
+      startsAt: start,
+      endsAt: end,
+      status: "reserved",
+      ...opts,
+      ...extra,
+    }),
   );
 }
 
@@ -30,7 +38,10 @@ beforeAll(async () => {
 beforeEach(async () => {
   await db.execute(sql`truncate reservations, downtimes, order_lines, orders, product_variants, products cascade`);
   const [p] = await db.insert(products).values({ slug: "tent-20x20", name: "20x20 Marquee Tent" }).returning();
-  const [v] = await db.insert(productVariants).values({ productId: p.id, name: p.name, stockQuantity: 1, basePriceCents: 65000 }).returning();
+  const [v] = await db
+    .insert(productVariants)
+    .values({ productId: p.id, name: p.name, stockQuantity: 1, basePriceCents: 65000 })
+    .returning();
   variantId = v.id;
 });
 
@@ -64,16 +75,34 @@ describe("reserveStock", () => {
 
   it("expired checkout holds do not block stock", async () => {
     await db.transaction((tx) =>
-      reserveStock(tx, { cartId: "cart-1", items: [{ variantId, quantity: 1 }], startsAt: start, endsAt: end, status: "hold", holdMinutes: 15, ...opts }),
+      reserveStock(tx, {
+        cartId: "cart-1",
+        items: [{ variantId, quantity: 1 }],
+        startsAt: start,
+        endsAt: end,
+        status: "hold",
+        holdMinutes: 15,
+        ...opts,
+      }),
     );
     const during = await variantAvailability(db, [variantId], start, end, opts);
     expect(during.get(variantId)).toBe(0);
-    const later = await variantAvailability(db, [variantId], start, end, { ...opts, now: new Date(now.getTime() + 16 * 60 * 1000) });
+    const later = await variantAvailability(db, [variantId], start, end, {
+      ...opts,
+      now: new Date(now.getTime() + 16 * 60 * 1000),
+    });
     expect(later.get(variantId)).toBe(1);
   });
 
   it("downtime makes the item unavailable", async () => {
-    await db.insert(downtimes).values({ variantId, quantity: 1, startsAt: new Date("2026-07-11T00:00:00Z"), endsAt: new Date("2026-07-11T23:00:00Z") });
+    await db
+      .insert(downtimes)
+      .values({
+        variantId,
+        quantity: 1,
+        startsAt: new Date("2026-07-11T00:00:00Z"),
+        endsAt: new Date("2026-07-11T23:00:00Z"),
+      });
     await expect(reserve(await newOrder(), 1)).rejects.toBeInstanceOf(ShortageError);
   });
 

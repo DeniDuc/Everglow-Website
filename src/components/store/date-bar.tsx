@@ -9,7 +9,9 @@ import { useBooking } from "./booking-provider";
 /** The "Select a rental period" bar from the original site, now showing the chosen dates. */
 export function DateBar({ className, variant = "floating" }: { className?: string; variant?: "floating" | "inline" }) {
   const { periodRange, periodErrors, openPicker, availabilityLoading } = useBooking();
-  const days = periodRange ? Math.max(1, Math.ceil((periodRange.end.getTime() - periodRange.start.getTime()) / 86_400_000)) : 0;
+  const days = periodRange
+    ? Math.max(1, Math.ceil((periodRange.end.getTime() - periodRange.start.getTime()) / 86_400_000))
+    : 0;
 
   return (
     <button
@@ -36,7 +38,9 @@ export function DateBar({ className, variant = "floating" }: { className?: strin
               <span className="mx-2 text-gold-500">→</span>
               {formatLocal(periodRange.end, "EEE, MMM d · h:mm a")}
             </span>
-            {periodErrors.length > 0 && <span className="block text-sm text-danger">{periodErrorMessages[periodErrors[0]]}</span>}
+            {periodErrors.length > 0 && (
+              <span className="block text-sm text-danger">{periodErrorMessages[periodErrors[0]]}</span>
+            )}
           </>
         ) : (
           <>
@@ -45,7 +49,9 @@ export function DateBar({ className, variant = "floating" }: { className?: strin
           </>
         )}
       </span>
-      <span className="hidden text-sm font-medium text-gold-700 sm:inline">{periodRange ? "Change" : "Choose dates"}</span>
+      <span className="hidden text-sm font-medium text-gold-700 sm:inline">
+        {periodRange ? "Change" : "Choose dates"}
+      </span>
       <ChevronRight className="size-5 text-ink-muted transition-transform group-hover:translate-x-0.5" />
     </button>
   );

@@ -50,7 +50,10 @@ export function BookingPanel({
   const variant = product.variants.find((v) => v.id === variantId) ?? product.variants[0];
   if (!variant) return null;
   const inCart = cart.find((c) => c.variantId === variant.id)?.quantity ?? 0;
-  const free = availability.state === "ready" ? Math.max(0, (availability.variants[variant.id] ?? availability.total) - inCart) : null;
+  const free =
+    availability.state === "ready"
+      ? Math.max(0, (availability.variants[variant.id] ?? availability.total) - inCart)
+      : null;
   const tooMany = free !== null && quantity > free;
   const multi = product.variants.length > 1;
 
@@ -105,7 +108,11 @@ export function BookingPanel({
         </fieldset>
       )}
 
-      <button type="button" onClick={openPicker} className="flex w-full items-center gap-3 rounded-2xl border border-line bg-white p-4 text-left transition hover:border-gold-300 hover:shadow-soft">
+      <button
+        type="button"
+        onClick={openPicker}
+        className="flex w-full items-center gap-3 rounded-2xl border border-line bg-white p-4 text-left transition hover:border-gold-300 hover:shadow-soft"
+      >
         <CalendarDays className="size-5 shrink-0 text-gold-700" />
         <span className="min-w-0 flex-1 text-sm">
           {periodRange ? (
@@ -128,7 +135,10 @@ export function BookingPanel({
               key={free}
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
-              className={cn("rounded-full px-3 py-1 text-xs font-semibold", free === 0 ? "bg-danger/10 text-danger" : "bg-success/10 text-success")}
+              className={cn(
+                "rounded-full px-3 py-1 text-xs font-semibold",
+                free === 0 ? "bg-danger/10 text-danger" : "bg-success/10 text-success",
+              )}
             >
               {free === 0 ? "Booked" : `${free} available`}
             </motion.span>
@@ -136,19 +146,34 @@ export function BookingPanel({
           {availability.state === "loading" && <span className="skeleton h-6 w-20 rounded-full" />}
         </AnimatePresence>
       </button>
-      {periodRange && periodErrors.length > 0 && <p className="text-sm text-danger">Please choose other dates — these are outside our booking rules.</p>}
+      {periodRange && periodErrors.length > 0 && (
+        <p className="text-sm text-danger">Please choose other dates — these are outside our booking rules.</p>
+      )}
 
       <div className="flex gap-3" ref={buttonRef}>
         <QuantityStepper value={quantity} onChange={setQuantity} max={free !== null && free > 0 ? free : undefined} />
         <button type="button" onClick={add} disabled={free === 0 || tooMany} className="btn btn-primary h-12 flex-1">
           <AnimatePresence mode="wait" initial={false}>
             {justAdded ? (
-              <motion.span key="ok" className="flex items-center gap-2" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>
+              <motion.span
+                key="ok"
+                className="flex items-center gap-2"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+              >
                 <Check className="size-4" /> Added
               </motion.span>
             ) : (
-              <motion.span key="add" className="flex items-center gap-2" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>
-                <ShoppingBag className="size-4" /> Add to cart<span className="hidden sm:inline"> · {money(variant.priceCents * quantity)}</span>
+              <motion.span
+                key="add"
+                className="flex items-center gap-2"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+              >
+                <ShoppingBag className="size-4" /> Add to cart
+                <span className="hidden sm:inline"> · {money(variant.priceCents * quantity)}</span>
               </motion.span>
             )}
           </AnimatePresence>
@@ -174,7 +199,8 @@ export function BookingPanel({
               </p>
             </div>
             <button type="button" onClick={add} disabled={free === 0 || tooMany} className="btn btn-primary">
-              {justAdded ? <Check className="size-4" /> : <ShoppingBag className="size-4" />} {justAdded ? "Added" : "Add"}
+              {justAdded ? <Check className="size-4" /> : <ShoppingBag className="size-4" />}{" "}
+              {justAdded ? "Added" : "Add"}
             </button>
           </motion.div>
         )}
@@ -185,7 +211,8 @@ export function BookingPanel({
           <li className="flex gap-2">
             <Truck className="mt-0.5 size-4 shrink-0 text-gold-700" />
             <span>
-              <strong className="text-ink">Delivery & installation required.</strong> This item can&apos;t be picked up; delivery is added at checkout.
+              <strong className="text-ink">Delivery & installation required.</strong> This item can&apos;t be picked up;
+              delivery is added at checkout.
             </span>
           </li>
         ) : (
@@ -197,7 +224,8 @@ export function BookingPanel({
         <li className="flex gap-2">
           <Info className="mt-0.5 size-4 shrink-0 text-gold-700" />
           <span>
-            One price {product.priceLabel}. {depositPercent}% deposit to book; {damageProtectionPercent}% damage protection added unless declined.
+            One price {product.priceLabel}. {depositPercent}% deposit to book; {damageProtectionPercent}% damage
+            protection added unless declined.
           </span>
         </li>
       </ul>

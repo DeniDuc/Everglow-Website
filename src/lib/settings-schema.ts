@@ -82,6 +82,17 @@ export const cancellationTierSchema = z.object({
 });
 export const cancellationSchema = z.object({ tiers: z.array(cancellationTierSchema) });
 
+export const securitySchema = z.object({
+  /** Every staff account must set up an authenticator app. */
+  require2fa: z.boolean(),
+  /** Admin sessions end after this many hours without activity. */
+  sessionIdleHours: z
+    .number()
+    .int()
+    .min(1)
+    .max(24 * 14),
+});
+
 export const settingsSchemas = {
   business: businessSchema,
   booking: bookingSchema,
@@ -89,6 +100,7 @@ export const settingsSchemas = {
   pricing: pricingSchema,
   delivery: deliverySchema,
   cancellation: cancellationSchema,
+  security: securitySchema,
 } as const;
 
 export type SettingsKey = keyof typeof settingsSchemas;
@@ -146,6 +158,7 @@ export const defaultSettings: Settings = {
     deliveryNote:
       "All standard deliveries are curbside. We contact you the Sunday before your event with exact delivery times.",
   },
+  security: { require2fa: false, sessionIdleHours: 12 },
   cancellation: {
     tiers: [
       { minDaysBefore: 30, refundBp: 10000, label: "30+ days before the event" },

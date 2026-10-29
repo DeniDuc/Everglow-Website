@@ -31,7 +31,8 @@ export function CatalogueBrowser({
   const shown = useMemo(() => {
     const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
     let list = products.filter((p) => filter === "all" || p.collectionSlugs.includes(filter));
-    if (terms.length) list = list.filter((p) => terms.every((t) => `${p.name} ${p.excerpt ?? ""}`.toLowerCase().includes(t)));
+    if (terms.length)
+      list = list.filter((p) => terms.every((t) => `${p.name} ${p.excerpt ?? ""}`.toLowerCase().includes(t)));
     if (onlyAvailable && periodRange) list = list.filter((p) => (availability[p.id]?.total ?? 1) > 0);
     const sorted = [...list];
     if (sort === "price-asc") sorted.sort((a, b) => a.fromPriceCents - b.fromPriceCents);
@@ -44,7 +45,11 @@ export function CatalogueBrowser({
     <div>
       <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         {filters.length > 1 && (
-          <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:flex-wrap lg:px-0" role="tablist" aria-label="Filter by collection">
+          <div
+            className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:flex-wrap lg:px-0"
+            role="tablist"
+            aria-label="Filter by collection"
+          >
             {[{ slug: "all", name: "All" }, ...filters].map((f) => (
               <button
                 key={f.slug}
@@ -58,7 +63,11 @@ export function CatalogueBrowser({
                 )}
               >
                 {filter === f.slug && (
-                  <motion.span layoutId="catalogue-filter" className="absolute inset-0 rounded-full bg-ink" transition={{ type: "spring", stiffness: 400, damping: 34 }} />
+                  <motion.span
+                    layoutId="catalogue-filter"
+                    className="absolute inset-0 rounded-full bg-ink"
+                    transition={{ type: "spring", stiffness: 400, damping: 34 }}
+                  />
                 )}
                 <span className="relative">{f.name}</span>
               </button>
@@ -69,13 +78,23 @@ export function CatalogueBrowser({
           {showSearch && (
             <label className="flex h-11 min-w-0 flex-1 items-center gap-2 rounded-full bg-white px-4 ring-1 ring-line focus-within:ring-gold-500 sm:w-64 sm:flex-none">
               <Search className="size-4 text-ink-muted" />
-              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search" aria-label="Search products" className="min-w-0 flex-1 bg-transparent text-sm outline-none" />
+              <input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Search"
+                aria-label="Search products"
+                className="min-w-0 flex-1 bg-transparent text-sm outline-none"
+              />
             </label>
           )}
           <label className="flex h-11 items-center gap-2 rounded-full bg-white px-4 text-sm ring-1 ring-line">
             <SlidersHorizontal className="size-4 text-ink-muted" />
             <span className="sr-only">Sort by</span>
-            <select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className="bg-transparent outline-none">
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as Sort)}
+              className="bg-transparent outline-none"
+            >
               <option value="featured">Featured</option>
               <option value="price-asc">Price: low to high</option>
               <option value="price-desc">Price: high to low</option>
@@ -84,7 +103,12 @@ export function CatalogueBrowser({
           </label>
           {periodRange && (
             <label className="flex h-11 cursor-pointer items-center gap-2 rounded-full bg-white px-4 text-sm ring-1 ring-line">
-              <input type="checkbox" checked={onlyAvailable} onChange={(e) => setOnlyAvailable(e.target.checked)} className="size-4 accent-ink" />
+              <input
+                type="checkbox"
+                checked={onlyAvailable}
+                onChange={(e) => setOnlyAvailable(e.target.checked)}
+                className="size-4 accent-ink"
+              />
               Available only
             </label>
           )}

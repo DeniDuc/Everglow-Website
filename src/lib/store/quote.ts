@@ -11,9 +11,7 @@ import { loadSettings } from "@/lib/settings";
 export const cartQuoteInput = z.object({
   start: z.coerce.date(),
   end: z.coerce.date(),
-  items: z
-    .array(z.object({ variantId: z.string().uuid(), quantity: z.number().int().min(1).max(10000) }))
-    .max(100),
+  items: z.array(z.object({ variantId: z.string().uuid(), quantity: z.number().int().min(1).max(10000) })).max(100),
   fulfillment: z.enum(["pickup", "delivery"]).default("pickup"),
   outOfTownKm: z.number().int().min(0).max(2000).default(0),
   damageProtection: z.boolean().default(true),
@@ -40,7 +38,14 @@ export async function quoteCart(input: CartQuoteInput, now = new Date()): Promis
         .select({ variant: productVariants, product: products })
         .from(productVariants)
         .innerJoin(products, eq(products.id, productVariants.productId))
-        .where(and(inArray(productVariants.id, ids), isNull(productVariants.archivedAt), isNull(products.archivedAt), eq(products.showInStore, true)))
+        .where(
+          and(
+            inArray(productVariants.id, ids),
+            isNull(productVariants.archivedAt),
+            isNull(products.archivedAt),
+            eq(products.showInStore, true),
+          ),
+        )
     : [];
   const byId = new Map(rows.map((r) => [r.variant.id, r]));
   const items = input.items.filter((i) => byId.has(i.variantId));
@@ -56,10 +61,17 @@ export async function quoteCart(input: CartQuoteInput, now = new Date()): Promis
   });
 
   const available = Object.fromEntries(
-    await variantAvailability(db, ids, input.start, input.end, { now, defaultBufferAfter: settings.booking.defaultBufferAfterMinutes }),
+    await variantAvailability(db, ids, input.start, input.end, {
+      now,
+      defaultBufferAfter: settings.booking.defaultBufferAfterMinutes,
+    }),
   );
   const unavailable = items
-    .map((i) => ({ variantId: i.variantId, requested: i.quantity, available: Math.max(0, available[i.variantId] ?? 0) }))
+    .map((i) => ({
+      variantId: i.variantId,
+      requested: i.quantity,
+      available: Math.max(0, available[i.variantId] ?? 0),
+    }))
     .filter((u) => u.requested > u.available);
 
   const requiresDelivery = items.some((i) => byId.get(i.variantId)!.product.requiresDelivery);
@@ -125,7 +137,9 @@ export async function quoteCart(input: CartQuoteInput, now = new Date()): Promis
     available,
     unavailable,
     requiresDelivery,
-    deliveryTier: tier ? { id: tier.id, code: tier.code, name: tier.name, priceCents: tier.priceCents, description: tier.description } : null,
+    deliveryTier: tier
+      ? { id: tier.id, code: tier.code, name: tier.name, priceCents: tier.priceCents, description: tier.description }
+      : null,
     missingVariantIds: ids.filter((id) => !byId.has(id)),
   };
 }
@@ -133,5 +147,8 @@ export async function quoteCart(input: CartQuoteInput, now = new Date()): Promis
 /** Public availability per product for a period (used by product cards). */
 export async function storeAvailability(productIds: string[], start: Date, end: Date, now = new Date()) {
   const settings = await loadSettings(db);
-  return productAvailability(db, productIds, start, end, { now, defaultBufferAfter: settings.booking.defaultBufferAfterMinutes });
+  return productAvailability(db, productIds, start, end, {
+    now,
+    defaultBufferAfter: settings.booking.defaultBufferAfterMinutes,
+  });
 }

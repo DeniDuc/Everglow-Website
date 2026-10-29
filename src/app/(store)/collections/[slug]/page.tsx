@@ -32,8 +32,12 @@ async function Collection({ params }: { params: PageProps<"/collections/[slug]">
   const c = collections.find((x) => x.slug === slug);
   if (!c) notFound();
   const children = collections.filter((x) => x.parentId === c.id);
-  const items = products.filter((p) => p.collectionSlugs.includes(c.slug) || children.some((ch) => p.collectionSlugs.includes(ch.slug)));
-  const filters = children.filter((ch) => items.some((p) => p.collectionSlugs.includes(ch.slug))).map((ch) => ({ slug: ch.slug, name: ch.name }));
+  const items = products.filter(
+    (p) => p.collectionSlugs.includes(c.slug) || children.some((ch) => p.collectionSlugs.includes(ch.slug)),
+  );
+  const filters = children
+    .filter((ch) => items.some((p) => p.collectionSlugs.includes(ch.slug)))
+    .map((ch) => ({ slug: ch.slug, name: ch.name }));
   const parent = collections.find((x) => x.id === c.parentId);
 
   return (
@@ -45,20 +49,32 @@ async function Collection({ params }: { params: PageProps<"/collections/[slug]">
           { name: c.name, path: `/collections/${c.slug}` },
         ])}
       />
-      <PageHero title={c.name} image={c.image} intro={c.descriptionHtml ? <div dangerouslySetInnerHTML={{ __html: c.descriptionHtml }} /> : undefined} />
+      <PageHero
+        title={c.name}
+        image={c.image}
+        intro={c.descriptionHtml ? <div dangerouslySetInnerHTML={{ __html: c.descriptionHtml }} /> : undefined}
+      />
       <div className="container-page py-12 md:py-16">
         <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-sm text-ink-muted">
-          <Link href="/" className="hover:text-ink">Home</Link>
+          <Link href="/" className="hover:text-ink">
+            Home
+          </Link>
           <ChevronRight className="size-3.5" />
-          <Link href="/pages/catalogue" className="hover:text-ink">Catalogue</Link>
+          <Link href="/pages/catalogue" className="hover:text-ink">
+            Catalogue
+          </Link>
           {parent && parent.slug !== "rental-catalogue" && (
             <>
               <ChevronRight className="size-3.5" />
-              <Link href={`/collections/${parent.slug}`} className="hover:text-ink">{parent.name}</Link>
+              <Link href={`/collections/${parent.slug}`} className="hover:text-ink">
+                {parent.name}
+              </Link>
             </>
           )}
           <ChevronRight className="size-3.5" />
-          <span className="text-ink" aria-current="page">{c.name}</span>
+          <span className="text-ink" aria-current="page">
+            {c.name}
+          </span>
         </nav>
         <CatalogueBrowser products={items} filters={filters} showSearch={items.length > 8} />
       </div>

@@ -50,7 +50,10 @@ export function Header({ nav, searchItems, phone }: { nav: NavItem[]; searchItem
 
   return (
     <>
-      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-cream">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-cream"
+      >
         Skip to content
       </a>
       <header
@@ -59,7 +62,12 @@ export function Header({ nav, searchItems, phone }: { nav: NavItem[]; searchItem
           scrolled || menuOpen ? "bg-white/85 shadow-[0_1px_0_rgb(35_25_5/0.08)] backdrop-blur-xl" : "bg-white",
         )}
       >
-        <div className={cn("container-page flex items-center gap-4 transition-[height] duration-300", scrolled ? "h-16" : "h-20")}>
+        <div
+          className={cn(
+            "container-page flex items-center gap-4 transition-[height] duration-300",
+            scrolled ? "h-16" : "h-20",
+          )}
+        >
           <Link href="/" className="shrink-0" aria-label="Everglow Events & Tents – home">
             <Image
               src="/media/site/logo.png"
@@ -85,7 +93,10 @@ export function Header({ nav, searchItems, phone }: { nav: NavItem[]; searchItem
                   >
                     {item.label}
                     {isActive(item.href) && (
-                      <motion.span layoutId="nav-active" className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-gold-300" />
+                      <motion.span
+                        layoutId="nav-active"
+                        className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-gold-300"
+                      />
                     )}
                   </Link>
                 </li>

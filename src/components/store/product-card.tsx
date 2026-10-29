@@ -19,7 +19,9 @@ export function ProductCard({ product, priority = false }: { product: ProductCar
             className="object-contain p-3 transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.05]"
           />
         ) : (
-          <div className="flex h-full items-center justify-center bg-sand-50 text-sm text-ink-muted">Photo coming soon</div>
+          <div className="flex h-full items-center justify-center bg-sand-50 text-sm text-ink-muted">
+            Photo coming soon
+          </div>
         )}
         <div className="absolute inset-x-3 top-3 flex items-start justify-between gap-1.5">
           <AvailabilityBadge productId={product.id} className="bg-white/90 backdrop-blur" />
@@ -39,7 +41,9 @@ export function ProductCard({ product, priority = false }: { product: ProductCar
             {product.name}
           </Link>
         </h3>
-        {product.excerpt && <p className="line-clamp-2 text-[0.82rem] leading-relaxed text-ink-muted">{product.excerpt}</p>}
+        {product.excerpt && (
+          <p className="line-clamp-2 text-[0.82rem] leading-relaxed text-ink-muted">{product.excerpt}</p>
+        )}
         <p className="mt-auto flex flex-wrap items-baseline gap-x-1 pt-2">
           <span className="text-lg font-semibold text-gold-700">{money(product.fromPriceCents)}</span>
           <span className="text-sm text-ink-muted">/ {product.priceLabel}</span>

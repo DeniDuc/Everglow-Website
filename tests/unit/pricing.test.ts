@@ -131,7 +131,14 @@ describe("computeQuote", () => {
     const q = quote({
       lines: [
         rental("x", 10000, 1),
-        { key: "setup", title: "Setup", kind: "service", quantity: 1, rule: { ...structure(3000), priceType: "fixed" }, damageProtection: false },
+        {
+          key: "setup",
+          title: "Setup",
+          kind: "service",
+          quantity: 1,
+          rule: { ...structure(3000), priceType: "fixed" },
+          damageProtection: false,
+        },
       ],
     });
     expect(q.subtotalCents).toBe(13000);
@@ -148,18 +155,32 @@ describe("computeQuote", () => {
     const excl = quote({ lines: [rental("x", 10000, 1)], taxRates: [{ name: "GST", rateBp: 500 }] });
     expect(excl.taxCents).toBe(550);
     expect(excl.totalCents).toBe(11550);
-    const incl = quote({ lines: [rental("x", 10000, 1)], taxRates: [{ name: "GST", rateBp: 500 }], pricesIncludeTax: true });
+    const incl = quote({
+      lines: [rental("x", 10000, 1)],
+      taxRates: [{ name: "GST", rateBp: 500 }],
+      pricesIncludeTax: true,
+    });
     expect(incl.totalCents).toBe(11000);
     expect(incl.taxCents).toBe(524); // 11000 - 11000/1.05
   });
 
   it("requires 100% prepayment inside the rush window, 50% outside", () => {
     const startsAt = zonedDateTime("2026-11-20", "10:00", TZ);
-    const rush = quote({ lines: [rental("x", 10000, 1)], startsAt, endsAt: zonedDateTime("2026-11-21", "10:00", TZ), now: zonedDateTime("2026-11-07", "10:01", TZ) });
+    const rush = quote({
+      lines: [rental("x", 10000, 1)],
+      startsAt,
+      endsAt: zonedDateTime("2026-11-21", "10:00", TZ),
+      now: zonedDateTime("2026-11-07", "10:01", TZ),
+    });
     expect(rush.rush).toBe(true);
     expect(rush.depositCents).toBe(rush.totalCents);
     expect(rush.balanceDueAt).toBeNull();
-    const edge = quote({ lines: [rental("x", 10000, 1)], startsAt, endsAt: zonedDateTime("2026-11-21", "10:00", TZ), now: zonedDateTime("2026-11-06", "10:00", TZ) });
+    const edge = quote({
+      lines: [rental("x", 10000, 1)],
+      startsAt,
+      endsAt: zonedDateTime("2026-11-21", "10:00", TZ),
+      now: zonedDateTime("2026-11-06", "10:00", TZ),
+    });
     expect(edge.rush).toBe(false);
     expect(edge.depositCents).toBe(5500);
   });
@@ -188,17 +209,38 @@ describe("cancellationRefund", () => {
   ];
   const startsAt = new Date("2026-12-31T16:00:00Z");
   it("31 days before: everything paid back except the non-refundable 25%", () => {
-    const r = cancellationRefund({ paidCents: 50000, totalCents: 100000, startsAt, cancelledAt: new Date("2026-11-30T16:00:00Z"), tiers, nonRefundableBp: 2500 });
+    const r = cancellationRefund({
+      paidCents: 50000,
+      totalCents: 100000,
+      startsAt,
+      cancelledAt: new Date("2026-11-30T16:00:00Z"),
+      tiers,
+      nonRefundableBp: 2500,
+    });
     expect(r.daysBefore).toBe(31);
     expect(r.refundCents).toBe(25000);
   });
   it("29 days before: no refund", () => {
-    const r = cancellationRefund({ paidCents: 50000, totalCents: 100000, startsAt, cancelledAt: new Date("2026-12-02T16:00:00Z"), tiers, nonRefundableBp: 2500 });
+    const r = cancellationRefund({
+      paidCents: 50000,
+      totalCents: 100000,
+      startsAt,
+      cancelledAt: new Date("2026-12-02T16:00:00Z"),
+      tiers,
+      nonRefundableBp: 2500,
+    });
     expect(r.daysBefore).toBe(29);
     expect(r.refundCents).toBe(0);
   });
   it("never refunds more than was paid", () => {
-    const r = cancellationRefund({ paidCents: 10000, totalCents: 100000, startsAt, cancelledAt: new Date("2026-10-01T16:00:00Z"), tiers, nonRefundableBp: 2500 });
+    const r = cancellationRefund({
+      paidCents: 10000,
+      totalCents: 100000,
+      startsAt,
+      cancelledAt: new Date("2026-10-01T16:00:00Z"),
+      tiers,
+      nonRefundableBp: 2500,
+    });
     expect(r.refundCents).toBe(0);
   });
 });

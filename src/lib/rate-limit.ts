@@ -16,7 +16,8 @@ export async function rateLimit(bucket: string, max: number, windowSeconds: numb
   if (n >= max) return false;
   await db.insert(rateLimitHits).values({ bucket });
   // Opportunistic cleanup of old rows.
-  if (Math.random() < 0.02) await db.delete(rateLimitHits).where(lt(rateLimitHits.at, new Date(Date.now() - 86_400_000)));
+  if (Math.random() < 0.02)
+    await db.delete(rateLimitHits).where(lt(rateLimitHits.at, new Date(Date.now() - 86_400_000)));
   return true;
 }
 

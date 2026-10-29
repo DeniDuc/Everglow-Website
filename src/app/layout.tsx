@@ -3,9 +3,24 @@ import { Bona_Nova, Dancing_Script, Poppins } from "next/font/google";
 import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
-const bonaNova = Bona_Nova({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-bona-nova", display: "swap" });
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-poppins", display: "swap" });
-const dancing = Dancing_Script({ subsets: ["latin"], weight: ["500"], variable: "--font-dancing-script", display: "swap" });
+const bonaNova = Bona_Nova({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-bona-nova",
+  display: "swap",
+});
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-poppins",
+  display: "swap",
+});
+const dancing = Dancing_Script({
+  subsets: ["latin"],
+  weight: ["500"],
+  variable: "--font-dancing-script",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
@@ -35,7 +50,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${bonaNova.variable} ${poppins.variable} ${dancing.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${bonaNova.variable} ${poppins.variable} ${dancing.variable}`}
+    >
       <body className="min-h-dvh">{children}</body>
     </html>
   );

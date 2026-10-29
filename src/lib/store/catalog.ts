@@ -91,12 +91,21 @@ export async function getStoreProducts(): Promise<ProductCardData[]> {
   const rows = await db
     .select()
     .from(products)
-    .where(and(eq(products.showInStore, true), isNull(products.archivedAt), inArray(products.productType, ["rental", "bundle"])))
+    .where(
+      and(
+        eq(products.showInStore, true),
+        isNull(products.archivedAt),
+        inArray(products.productType, ["rental", "bundle"]),
+      ),
+    )
     .orderBy(asc(products.sortingWeight), asc(products.name));
   const ids = rows.map((r) => r.id);
   if (ids.length === 0) return [];
   const [variants, photos, links, cols] = await Promise.all([
-    db.select().from(productVariants).where(and(inArray(productVariants.productId, ids), isNull(productVariants.archivedAt))),
+    db
+      .select()
+      .from(productVariants)
+      .where(and(inArray(productVariants.productId, ids), isNull(productVariants.archivedAt))),
     db.select().from(productPhotos).where(inArray(productPhotos.productId, ids)).orderBy(asc(productPhotos.position)),
     db.select().from(productCollections).where(inArray(productCollections.productId, ids)),
     db.select({ id: collections.id, slug: collections.slug }).from(collections),
@@ -114,7 +123,10 @@ export async function getStoreProducts(): Promise<ProductCardData[]> {
       fromPriceCents: vs.length ? Math.min(...vs.map((v) => v.basePriceCents)) : 0,
       priceLabel: priceLabel({ priceType: p.priceType as PriceType, periodDays: p.periodDays }),
       requiresDelivery: p.requiresDelivery,
-      collectionSlugs: links.filter((l) => l.productId === p.id).map((l) => colSlug.get(l.collectionId)!).filter(Boolean),
+      collectionSlugs: links
+        .filter((l) => l.productId === p.id)
+        .map((l) => colSlug.get(l.collectionId)!)
+        .filter(Boolean),
       sortingWeight: p.sortingWeight,
       featured: p.featured,
     };
@@ -158,7 +170,13 @@ export async function getProductBySlug(slug: string) {
     priceLabel: priceLabel({ priceType: p.priceType as PriceType, periodDays: p.periodDays }),
     requiresDelivery: p.requiresDelivery,
     updatedAt: p.updatedAt.toISOString(),
-    variants: variants.map((v) => ({ id: v.id, name: v.name, options: v.options, priceCents: v.basePriceCents, sku: v.sku })),
+    variants: variants.map((v) => ({
+      id: v.id,
+      name: v.name,
+      options: v.options,
+      priceCents: v.basePriceCents,
+      sku: v.sku,
+    })),
     photos: photos.map((ph) => ({ src: ph.src, alt: ph.alt ?? p.name })),
     collections: links,
   };

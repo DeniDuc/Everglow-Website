@@ -21,7 +21,12 @@ export default async function CataloguePage() {
     .map((c) => ({ slug: c.slug, name: c.name }));
   return (
     <>
-      <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Catalogue", path: "/pages/catalogue" }])} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Catalogue", path: "/pages/catalogue" },
+        ])}
+      />
       <PageHero
         eyebrow="Our"
         title="Rental Catalogue"

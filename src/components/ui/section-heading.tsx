@@ -19,7 +19,13 @@ export function SectionHeading({
   children?: React.ReactNode;
 }) {
   return (
-    <div className={cn("flex flex-col gap-4 md:flex-row md:items-end md:justify-between", align === "center" && "items-center text-center md:flex-col md:items-center", className)}>
+    <div
+      className={cn(
+        "flex flex-col gap-4 md:flex-row md:items-end md:justify-between",
+        align === "center" && "items-center text-center md:flex-col md:items-center",
+        className,
+      )}
+    >
       <div className={cn("max-w-2xl", align === "center" && "mx-auto")}>
         {eyebrow && <p className="eyebrow mb-1">{eyebrow}</p>}
         <Tag className="heading-lg text-ink">{title}</Tag>

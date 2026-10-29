@@ -6,7 +6,13 @@ import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { sendInquiry, type ContactState } from "@/app/(store)/pages/contact/actions";
 import { cn } from "@/lib/cn";
 
-function Field({ label, name, error, textarea, ...props }: { label: string; name: string; error?: string; textarea?: boolean } & React.InputHTMLAttributes<HTMLInputElement>) {
+function Field({
+  label,
+  name,
+  error,
+  textarea,
+  ...props
+}: { label: string; name: string; error?: string; textarea?: boolean } & React.InputHTMLAttributes<HTMLInputElement>) {
   const cls = cn(
     "peer w-full rounded-2xl border bg-white px-4 pb-2.5 pt-6 text-[0.95rem] outline-none transition-colors placeholder-transparent focus:border-gold-500",
     error ? "border-danger" : "border-line",
@@ -14,7 +20,14 @@ function Field({ label, name, error, textarea, ...props }: { label: string; name
   return (
     <label className="relative block">
       {textarea ? (
-        <textarea name={name} rows={5} placeholder={label} className={cn(cls, "resize-y")} aria-invalid={!!error} required={props.required} />
+        <textarea
+          name={name}
+          rows={5}
+          placeholder={label}
+          className={cn(cls, "resize-y")}
+          aria-invalid={!!error}
+          required={props.required}
+        />
       ) : (
         <input name={name} placeholder={label} className={cls} aria-invalid={!!error} {...props} />
       )}
@@ -31,7 +44,13 @@ export function ContactForm() {
   return (
     <AnimatePresence mode="wait">
       {state.ok ? (
-        <motion.div key="done" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-3xl bg-white p-8 text-center shadow-soft" role="status">
+        <motion.div
+          key="done"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="rounded-3xl bg-white p-8 text-center shadow-soft"
+          role="status"
+        >
           <CheckCircle2 className="mx-auto size-12 text-success" />
           <p className="mt-4 font-display text-2xl">Thank you!</p>
           <p className="mt-2 text-ink-muted">We received your message and will get back to you as soon as we can.</p>
@@ -43,9 +62,19 @@ export function ContactForm() {
             <Field label="Email" name="email" type="email" autoComplete="email" required error={state.errors?.email} />
             <Field label="Phone (optional)" name="phone" type="tel" autoComplete="tel" error={state.errors?.phone} />
           </div>
-          <Field label="Message — event date, items, questions" name="message" textarea required error={state.errors?.message} />
+          <Field
+            label="Message — event date, items, questions"
+            name="message"
+            textarea
+            required
+            error={state.errors?.message}
+          />
           <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
-          {state.message && <p className="text-sm text-danger" role="alert">{state.message}</p>}
+          {state.message && (
+            <p className="text-sm text-danger" role="alert">
+              {state.message}
+            </p>
+          )}
           <button type="submit" className="btn btn-primary px-6" disabled={pending}>
             {pending ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />} Send message
           </button>

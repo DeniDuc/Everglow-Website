@@ -141,6 +141,7 @@ async function main() {
   const s = await import("../src/db/schema");
   const { defaultSettings } = await import("../src/lib/settings-schema");
   const { hashPassword } = await import("../src/lib/auth/password");
+  const { decrypt } = await import("../src/lib/crypto");
   const root = path.resolve(__dirname, "..");
   const snap: Snapshot = JSON.parse(readFileSync(path.join(root, "data/booqable/catalog.json"), "utf8"));
   const faq: { question: string; answerHtml: string }[] = JSON.parse(
@@ -342,7 +343,10 @@ async function main() {
     const email = process.env.SEED_OWNER_EMAIL;
     const password = process.env.SEED_OWNER_PASSWORD;
     if (email && password) {
-      const exists = await tx.select().from(s.staffUsers).where(eq(s.staffUsers.email, email.toLowerCase()));
+      const exists = await tx
+        .select({ id: s.staffUsers.id })
+        .from(s.staffUsers)
+        .where(eq(s.staffUsers.email, email.toLowerCase()));
       if (exists.length === 0) {
         await tx.insert(s.staffUsers).values({
           email: email.toLowerCase(),
@@ -351,6 +355,30 @@ async function main() {
           passwordHash: await hashPassword(password),
         });
         console.log(`owner account created: ${email}`);
+      }
+    }
+
+    // A 2FA secret that no longer decrypts (ENCRYPTION_KEY was replaced) can never verify a code and
+    // breaks every admin page that loads the user. Clear it and end their sessions: they still need
+    // their password, and the 2FA requirement makes them enrol again at the next sign-in.
+    const secrets = await tx
+      .select({ id: s.staffUsers.id, email: s.staffUsers.email, secret: sql<string>`"totp_secret"` })
+      .from(s.staffUsers)
+      .where(sql`"totp_secret" is not null`);
+    for (const u of secrets) {
+      try {
+        decrypt(u.secret);
+      } catch {
+        await tx.execute(
+          sql`update "staff_users" set "totp_secret" = null, "totp_enabled" = false where "id" = ${u.id}`,
+        );
+        await tx.delete(s.staffSessions).where(eq(s.staffSessions.userId, u.id));
+        await tx.insert(s.auditLog).values({
+          action: "2fa.reset_unreadable_secret",
+          entity: "staff_user",
+          entityId: u.id,
+        });
+        console.warn(`2FA reset for ${u.email}: its secret was encrypted with a different ENCRYPTION_KEY`);
       }
     }
   });

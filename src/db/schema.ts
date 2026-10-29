@@ -440,6 +440,12 @@ export const orders = pgTable(
     /** Public token for the customer's order page (/order/<token>). */
     publicToken: text("public_token").unique(),
     overbooked: boolean("overbooked").notNull().default(false),
+    /** Staff-only notes (encrypted): setup plan, gate codes, special requests. */
+    internalNotes: encryptedText("internal_notes"),
+    /** Government ID checked at pickup/delivery (Terms: ID required at handover). */
+    idCheckedAt: timestamp("id_checked_at", { withTimezone: true }),
+    idCheckedById: uuid("id_checked_by_id").references(() => staffUsers.id, { onDelete: "set null" }),
+    cancelledAt: timestamp("cancelled_at", { withTimezone: true }),
     booqableNumber: text("booqable_number"),
     createdById: uuid("created_by_id").references(() => staffUsers.id, { onDelete: "set null" }),
     ...timestamps,
@@ -511,4 +517,38 @@ export const reservations = pgTable(
     index("reservations_order_idx").on(t.orderId),
     uniqueIndex("reservations_cart_variant_idx").on(t.cartId, t.variantId),
   ],
+);
+
+export const paymentKind = pgEnum("payment_kind", ["payment", "refund"]);
+export const paymentMethod = pgEnum("payment_method", [
+  "card",
+  "etransfer",
+  "cash",
+  "cheque",
+  "credit",
+  "booqable",
+  "other",
+]);
+
+/**
+ * Money received or refunded per order. `orders.paid_cents` is kept equal to
+ * payments minus refunds. Stripe charges are added here in phase 5 (method "card").
+ */
+export const payments = pgTable(
+  "payments",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    orderId: uuid("order_id")
+      .notNull()
+      .references(() => orders.id, { onDelete: "cascade" }),
+    kind: paymentKind("kind").notNull().default("payment"),
+    method: paymentMethod("method").notNull(),
+    /** Always positive; `kind` gives the direction. */
+    amountCents: integer("amount_cents").notNull(),
+    reference: text("reference"),
+    receivedAt: timestamp("received_at", { withTimezone: true }).notNull().defaultNow(),
+    recordedById: uuid("recorded_by_id").references(() => staffUsers.id, { onDelete: "set null" }),
+    createdAt: timestamps.createdAt,
+  },
+  (t) => [index("payments_order_idx").on(t.orderId)],
 );

@@ -27,7 +27,9 @@ export default async function DashboardPage({ searchParams }: PageProps<"/admin"
   const from = zonedDateTime(startDay, "00:00", TIMEZONE);
   const to = zonedDateTime(endDay, "00:00", TIMEZONE);
 
-  const [goingOut, comingBack, newInquiries, stats, toConfirm] = await Promise.all([
+  const now = new Date();
+  const in14 = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000);
+  const [goingOut, comingBack, newInquiries, stats, toConfirm, late, balanceDue] = await Promise.all([
     db
       .select({ o: orders, name: customers.name })
       .from(orders)
@@ -52,6 +54,24 @@ export default async function DashboardPage({ searchParams }: PageProps<"/admin"
       .select({ n: sql<number>`count(*)::int` })
       .from(products)
       .where(and(isNull(products.archivedAt), sql`${products.custom} ? 'stockToConfirm'`)),
+    db
+      .select({ o: orders, name: customers.name })
+      .from(orders)
+      .leftJoin(customers, eq(customers.id, orders.customerId))
+      .where(and(eq(orders.status, "out"), lt(orders.endsAt, now)))
+      .orderBy(asc(orders.endsAt)),
+    db
+      .select({ o: orders, name: customers.name })
+      .from(orders)
+      .leftJoin(customers, eq(customers.id, orders.customerId))
+      .where(
+        and(
+          inArray(orders.status, ["reserved", "ready"]),
+          lt(orders.startsAt, in14),
+          sql`${orders.totalCents} > ${orders.paidCents}`,
+        ),
+      )
+      .orderBy(asc(orders.startsAt)),
   ]);
 
   const tabs = [
@@ -106,6 +126,25 @@ export default async function DashboardPage({ searchParams }: PageProps<"/admin"
           </div>
         </Card>
         <div className="space-y-5 xl:row-span-2">
+          {late.length > 0 && (
+            <Card title={`${t("dash.late")} (${late.length})`} padded={false} className="border-red-200">
+              <OrderList rows={late} field="endsAt" empty={t("dash.noResults")} />
+            </Card>
+          )}
+          {balanceDue.length > 0 && (
+            <Card title={t("dash.balanceDue")} padded={false}>
+              <ul className="divide-y divide-admin-line">
+                {balanceDue.map(({ o, name }) => (
+                  <li key={o.id} className="flex items-center justify-between gap-3 px-5 py-3 text-sm">
+                    <Link href={`/admin/bookings/${o.id}`} className="hover:text-admin-blue">
+                      <strong>#{o.number}</strong> {name ?? "—"} · {formatLocal(o.startsAt, "EEE MMM d")}
+                    </Link>
+                    <span className="font-semibold text-red-600">{money(o.totalCents - o.paidCents)}</span>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          )}
           <Card title={t("dash.inquiries")} padded={false}>
             {newInquiries.length === 0 ? (
               <EmptyState title={t("dash.noResults")} />

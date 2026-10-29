@@ -41,6 +41,17 @@ Why things are the way they are. Newest decisions at the top of each section. Ow
    - An internal drafting note in section 18 ("We suggest implementing…") was removed from the web version.
 6. **Credit-card fees**: Booqable added a ~3% "Credit Card Fees" line to invoices. Not added by default in the new checkout; card surcharges in Canada are regulated (capped by the card networks, not allowed on debit cards, must be disclosed before payment) — check the current limit with the payment provider. Owner to decide.
 
+## Orders (phase 4)
+
+- **Lifecycle**: Draft → Quote sent → Reserved → Ready → Out → Returned → Closed; Cancelled until the items go out (restorable as a draft). "Late" is computed (out after the return time), not stored. Rules live in `src/lib/orders/status.ts`.
+- **Stock**: Reserved, Ready and Out hold stock; drafts and quotes only when *Settings → Booking rules → quotes hold stock* is on. Returned/Closed/Cancelled release it. Every claim goes through `reserveStock` (row locks), so admin and website bookings can't oversell each other. Staff can overbook explicitly; the order is flagged "Overbooked".
+- **Pricing**: admin orders use the same `computeQuote` as the cart. On every save the lines are re-priced from the catalogue (unless a price is overridden, which needs a reason and is written to the audit log) and the computed parts — delivery, out-of-town km, discount, damage protection, taxes — are stored as order lines, so invoices show exactly what was charged even if prices change later. The rush/deposit rule uses the order's creation time, so editing a booking later doesn't turn it into a 100% prepayment.
+- **Editing stops when the order goes out**: items, dates and prices are locked from "Out" onwards; past orders imported from Booqable stay exactly as invoiced.
+- **Payments** are recorded per order (e-Transfer, cash, card terminal, cheque, store credit); `orders.paid_cents` always equals payments minus refunds. Amounts paid in Booqable were migrated as one "Booqable" payment per order. Stripe card payments join this table in phase 5.
+- **Cancellation** shows the Terms section 13 outcome (kept / credit / refund / still owed) before confirming; it records the cancellation and frees the stock. Credits and refunds are processed by staff (store-credit balances come with phase 5).
+- **ID at handover**: "Hand over" asks to confirm the government ID was checked; the time and staff member are stored on the order.
+- **Packing slip / run sheet**: printable pages without prices (items, contact, delivery address, notes, sign-off lines). The calendar's day panel prints as the daily run sheet.
+
 ## Time zone
 
 - Everything is stored in UTC and shown in `America/Winnipeg` using the runtime's tz database (never hard-coded offsets).
@@ -62,6 +73,7 @@ Why things are the way they are. Newest decisions at the top of each section. Ow
 
 - Customer personal data (name, email, phone, company, address, notes, inquiry text, delivery address, event details) and staff TOTP secrets are encrypted in the application with **AES-256-GCM** (`ENCRYPTION_KEY`), on top of the provider's encryption at rest and TLS in transit. Email lookups use an HMAC blind index (`BLIND_INDEX_KEY`). Key format is versioned (`v1.`) for rotation. Admin search decrypts in memory — fine for thousands of customers.
 - No card data will ever touch our servers (Stripe-hosted fields, phase 5).
+- Tests always run with their own throwaway keys, even if real keys are present in the environment; local development uses the keys in `.env.local`. Production keys belong only in Vercel (and, temporarily, in the cloud environment of a session that needs production access).
 - Every admin page and server action calls `requireStaff(permission)`; the proxy only does a fast cookie check. Roles: owner / staff / read-only. Sensitive actions are written to `audit_log`.
 - Security headers (HSTS, X-Frame-Options DENY, nosniff, referrer policy, permissions policy); admin is `noindex` and `no-store`.
 - Forms: Zod validation, honeypot + Postgres-backed rate limiting for contact and login.

@@ -7,6 +7,7 @@ import { productAvailability, variantAvailability } from "@/lib/availability/db"
 import { validatePeriod, type PeriodError } from "@/lib/availability/engine";
 import { computeQuote, suggestDeliveryTier, type PriceType, type Quote } from "@/lib/pricing";
 import { loadSettings } from "@/lib/settings";
+import { quoteRules } from "@/lib/settings-schema";
 
 export const cartQuoteInput = z.object({
   start: z.coerce.date(),
@@ -120,15 +121,7 @@ export async function quoteCart(input: CartQuoteInput, now = new Date()): Promis
     discountBp: 0,
     taxRates: activeTaxes.map((t) => ({ name: t.name, rateBp: t.rateBp })),
     pricesIncludeTax: settings.pricing.pricesIncludeTax,
-    rules: {
-      extraDayBp: settings.pricing.extraDayBp,
-      damageProtectionBp: settings.pricing.damageProtectionBp,
-      perKmCents: settings.delivery.perKmCents,
-      depositBp: settings.payments.depositBp,
-      nonRefundableBp: settings.payments.nonRefundableBp,
-      rushThresholdDays: settings.payments.rushThresholdDays,
-      balanceDueDaysBefore: settings.payments.balanceDueDaysBefore,
-    },
+    rules: quoteRules(settings),
   });
 
   return {

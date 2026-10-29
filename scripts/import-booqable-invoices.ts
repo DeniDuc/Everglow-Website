@@ -269,6 +269,14 @@ async function main() {
         })
         .returning({ id: s.orders.id });
       await tx.insert(s.orderLines).values(lineRows.map((l, position) => ({ ...l, orderId: order.id, position })));
+      if (paidCents > 0)
+        await tx.insert(s.payments).values({
+          orderId: order.id,
+          method: "booqable",
+          amountCents: paidCents,
+          reference: "Paid in Booqable (imported)",
+          receivedAt: main.invoiceDate ? zonedDateTime(ymd(main.invoiceDate), "12:00", tz) : now,
+        });
 
       if (future) {
         const items = lineRows

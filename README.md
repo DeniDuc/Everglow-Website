@@ -3,7 +3,7 @@
 Custom storefront + back office for **EVERGLOW EVENTS & TENTS INC.** (Winnipeg), replacing Booqable.
 
 - **Storefront** (`/`): catalogue, collections, product pages, rental-period picker with live availability, cart priced by the server (delivery tier, damage protection, 50% deposit / 100% rush), contact form.
-- **Admin** (`/admin`): Booqable-style back office in English or Russian — dashboard, inventory and product editor, collections, clients, inquiries, settings for every business rule, staff roles, two-step verification.
+- **Admin** (`/admin`): Booqable-style back office in English or Russian — dashboard, bookings (manual orders with live availability and pricing, statuses, payments, packing slips), calendar with daily run sheets, clients, inventory and product editor, collections, inquiries, settings for every business rule, staff roles, two-step verification.
 
 Status and roadmap: see [Phases](#phases). Why things are built this way: [DECISIONS.md](DECISIONS.md). Visual tokens: [design-tokens.md](design-tokens.md).
 
@@ -13,6 +13,9 @@ Status and roadmap: see [Phases](#phases). Why things are built this way: [DECIS
 - Админка: `/admin`. Язык меняется в «Мой аккаунт». Там же включается двухэтапная проверка (Google Authenticator / 1Password).
 - Все правила (депозит, срочный заказ, защита 10%, налоги, тарифы доставки, закрытые дни, тексты страниц и FAQ) меняются в «Настройках» без программиста.
 - Остатки товаров пока временные — проверьте их в «Инвентаре» (или пришлите CSV из Booqable).
+- «Новое бронирование» — заказ по телефону/Facebook: даты, товары (сразу видно, сколько свободно), доставка, клиент, скидка. Сумма считается по тем же правилам, что на сайте. «Забронировать» резервирует товары, «Сохранить черновик» — нет.
+- В заказе: кнопки статусов (Собрано → Выдать с отметкой ID → Возврат → Закрыть), «Отменить» показывает, что остаётся по разделу 13 условий, «Внести платёж» (e-Transfer, наличные, карта…), «Лист комплектации» для печати.
+- «Календарь» — выдачи и возвраты по дням, справа план дня с товарами и адресами, можно распечатать.
 
 ## Tech stack
 
@@ -74,7 +77,7 @@ Secrets live only in environment variables (Vercel → Project → Settings → 
 | `npm run dev` | Development server |
 | `npm run build` / `npm start` | Production build / server (needs the database) |
 | `npm run lint` · `npm run typecheck` · `npm run format` | Quality checks |
-| `npm test` | Unit + integration tests (pricing, availability, double booking). Uses `TEST_DATABASE_URL` (default `postgres://everglow:everglow@localhost:5432/everglow_test`). |
+| `npm test` | Unit + integration tests (pricing, availability, double booking, orders, payments). Uses `TEST_DATABASE_URL` (default `postgres://everglow:everglow@localhost:5432/everglow_test`) and always its own test encryption keys. |
 | `npm run test:e2e` | Playwright end-to-end tests against `next start` (build first). Locally you can point to an existing Chromium with `PW_CHROMIUM_PATH`. |
 | `npm run db:generate` | Create a SQL migration after editing `src/db/schema.ts` |
 | `npm run db:migrate` | Apply migrations |
@@ -122,6 +125,7 @@ src/app/(store)/        storefront pages (static, cached)
 src/app/admin/          back office (login, panel)
 src/app/api/            availability + cart quote endpoints
 src/lib/pricing/        pricing engine (pure)
+src/lib/orders/         order lifecycle (pure) + order service (save, reserve, status, payments)
 src/lib/availability/   availability engine (pure) + locked reservations (db)
 src/lib/auth/           sessions, roles, passwords, TOTP
 src/db/schema.ts        database schema (migrations in drizzle/)
@@ -137,8 +141,8 @@ data/                   Booqable snapshot and seed content
 | 1 Foundation (schema, auth, design, storefront pages) | ✅ |
 | 2 Catalogue & admin products (CRUD, photos, collections; Booqable CSV import waits for the export file) | ✅ / CSV pending |
 | 3 Availability & pricing engines, date picker, live availability | ✅ |
-| 4 Orders in admin (manual bookings, statuses, calendar, packing slips, customers) | next |
-| 5 Checkout & Stripe (deposit, saved card, payment links, refunds, webhooks, online contract signature) | |
+| 4 Orders in admin (manual bookings, statuses, payments, calendar + run sheets, packing slips, client pages) | ✅ |
+| 5 Checkout & Stripe (deposit, saved card, payment links, refunds, webhooks, online contract signature) | next |
 | 6 Documents & emails (quotes, invoices, contracts, reminders, staff alerts) | |
 | 7 Reports, coupons, polish | |
 | 8 Migration & cutover | |

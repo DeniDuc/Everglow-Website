@@ -211,3 +211,16 @@ export const defaultSettings: Settings = {
     ],
   },
 };
+
+/** The pricing-engine rules derived from settings (cart, checkout and admin orders use the same). */
+export function quoteRules(s: Settings) {
+  return {
+    extraDayBp: s.pricing.extraDayBp,
+    damageProtectionBp: s.pricing.damageProtectionBp,
+    perKmCents: s.delivery.perKmCents,
+    depositBp: s.payments.depositBp,
+    nonRefundableBp: s.payments.nonRefundableBp,
+    rushThresholdDays: s.payments.rushThresholdDays,
+    balanceDueDaysBefore: s.payments.balanceDueDaysBefore,
+  };
+}

@@ -35,6 +35,31 @@ test("admin requires login and shows the inventory", async ({ page }) => {
   await expect(page.getByRole("link", { name: /20x20 Marquee Tent/ })).toBeVisible();
   await page.getByRole("link", { name: /20x20 Marquee Tent/ }).click();
   await expect(page.getByLabel("Name", { exact: true }).first()).toHaveValue("20x20 Marquee Tent");
+
+  // Phone booking: pick items with live price, reserve, take a payment, move it along.
+  await page.goto("/admin/bookings/new");
+  const search = page.getByRole("combobox", { name: "Add a product…" });
+  await search.fill("folding chair");
+  await search.press("Enter");
+  await page.getByLabel("Qty").fill("12");
+  await expect(page.getByText("$22.80").first()).toBeVisible(); // 12 × $1.90
+  await page.getByRole("button", { name: "New client" }).click();
+  await page.getByLabel("Name", { exact: true }).fill("E2E Phone Client");
+  await page.getByRole("textbox", { name: "Phone" }).fill("204-555-0199");
+  await page.getByRole("button", { name: "Reserve" }).click();
+  await expect(page).toHaveURL(/\/admin\/bookings\/[0-9a-f-]{36}$/);
+  await expect(page.getByText("Reserved", { exact: true })).toBeVisible();
+
+  await page.getByRole("button", { name: "Register payment" }).click();
+  await page.getByLabel("Amount").fill("10");
+  await page.getByRole("button", { name: "Save", exact: true }).click();
+  await expect(page.getByText("Payment · e-Transfer")).toBeVisible();
+
+  await page.getByRole("button", { name: "Mark as ready" }).click();
+  await expect(page.getByText("Ready", { exact: true }).first()).toBeVisible();
+  await page.getByRole("link", { name: "Packing slip" }).click();
+  await expect(page.getByRole("heading", { name: "Packing slip" })).toBeVisible();
+  await expect(page.getByRole("table").getByText("White Folding Chair")).toBeVisible();
 });
 
 test("admin pages are not indexable", async ({ request }) => {

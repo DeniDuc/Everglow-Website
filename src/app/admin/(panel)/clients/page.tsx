@@ -1,25 +1,18 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { desc, isNull } from "drizzle-orm";
-import { Badge, EmptyState, Input, PageHeader, Table } from "@/components/admin/ui";
+import { Plus } from "lucide-react";
+import { Badge, buttonClass, EmptyState, Input, PageHeader, Table } from "@/components/admin/ui";
 import { db } from "@/db";
 import { customers } from "@/db/schema";
 import { requireStaff } from "@/lib/auth/session";
 import { formatLocal } from "@/lib/format";
-import { translator } from "@/lib/i18n/admin";
+import { translator, type MessageKey } from "@/lib/i18n/admin";
 
 // Per-user back office page: rendered on request, no instant-navigation prefetch needed.
 export const instant = false;
 
 export const metadata: Metadata = { title: "Clients" };
-
-const sourceLabel: Record<string, string> = {
-  website: "Website",
-  facebook_marketplace: "Facebook Marketplace",
-  phone: "Phone",
-  referral: "Referral",
-  walk_in: "Walk-in",
-  other: "Other",
-};
 
 export default async function ClientsPage({ searchParams }: PageProps<"/admin/clients">) {
   const user = await requireStaff();
@@ -39,7 +32,14 @@ export default async function ClientsPage({ searchParams }: PageProps<"/admin/cl
     : rows;
   return (
     <>
-      <PageHeader title={t("clients.title")}>
+      <PageHeader
+        title={t("clients.title")}
+        actions={
+          <Link href="/admin/clients/new" className={buttonClass("primary")}>
+            <Plus className="size-4" /> {t("clients.new")}
+          </Link>
+        }
+      >
         <form className="w-full max-w-xs" role="search">
           <Input name="q" defaultValue={q} placeholder={t("common.search")} aria-label="Search clients" />
         </form>
@@ -67,10 +67,14 @@ export default async function ClientsPage({ searchParams }: PageProps<"/admin/cl
             {shown.map((c) => (
               <tr key={c.id}>
                 <td className="px-4 py-3 font-semibold">#{c.number}</td>
-                <td className="px-4 py-3 font-semibold">{c.name}</td>
+                <td className="px-4 py-3 font-semibold">
+                  <Link href={`/admin/clients/${c.id}`} className="text-admin-blue hover:underline">
+                    {c.name}
+                  </Link>
+                </td>
                 <td className="px-4 py-3">{c.email}</td>
                 <td className="px-4 py-3">{c.phone}</td>
-                <td className="px-4 py-3">{sourceLabel[c.source]}</td>
+                <td className="px-4 py-3">{t(`source.${c.source}` as MessageKey)}</td>
                 <td className="whitespace-nowrap px-4 py-3">{formatLocal(c.createdAt, "dd-MM-yyyy")}</td>
                 <td className="px-4 py-3">
                   {c.tags.map((tag) => (

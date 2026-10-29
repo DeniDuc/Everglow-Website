@@ -198,7 +198,7 @@ export function Sidebar({
     <>
       <aside
         className={cn(
-          "sticky top-0 hidden h-dvh shrink-0 border-r border-admin-line transition-[width] duration-200 lg:block",
+          "sticky top-0 hidden h-dvh shrink-0 border-r border-admin-line transition-[width] duration-200 lg:block print:hidden",
           collapsed ? "w-16" : "w-60",
         )}
       >
@@ -207,7 +207,7 @@ export function Sidebar({
       <button
         type="button"
         onClick={() => setMobileOpen(true)}
-        className="fixed bottom-4 left-4 z-40 flex size-12 items-center justify-center rounded-full bg-admin-blue text-white shadow-lg lg:hidden"
+        className="fixed bottom-4 left-4 z-40 flex size-12 items-center justify-center rounded-full bg-admin-blue text-white shadow-lg lg:hidden print:hidden"
         aria-label="Open menu"
       >
         <Menu className="size-6" />

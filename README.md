@@ -61,7 +61,7 @@ Open http://localhost:3000 (store) and http://localhost:3000/admin (sign in with
 | `ENCRYPTION_KEY` | yes | 32 random bytes (base64). Encrypts customer personal data. **Back it up in a password manager — without it encrypted data cannot be read.** |
 | `BLIND_INDEX_KEY` | yes | 32 random bytes (base64). Used to look up customers by email. |
 | `STORAGE_DRIVER` | no | Picked automatically: Supabase Storage when `SUPABASE_URL` (or `NEXT_PUBLIC_SUPABASE_URL`) and `SUPABASE_SERVICE_ROLE_KEY` exist, otherwise `public/uploads` (development). |
-| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_BUCKET` | prod | Supabase Storage for uploaded photos (public bucket `media`, created automatically). Set by the Supabase integration. Server-side only. |
+| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_BUCKET` | prod | Supabase Storage for uploaded photos (public bucket `media`, created automatically). `SUPABASE_SERVICE_ROLE_KEY` takes either the legacy `service_role` key or a new secret key (`sb_secret_…`). Server-side only — never the publishable/anon key. |
 | `GMAIL_APP_PASSWORD` | prod | Gmail App Password for eventseverglow@gmail.com. All emails (confirmations, reminders, invoices, staff alerts) are sent from that address. Without it emails are skipped. |
 | `SEED_OWNER_EMAIL`, `SEED_OWNER_PASSWORD` | seed | First owner account created by `npm run db:seed`. |
 
@@ -84,7 +84,7 @@ Secrets live only in environment variables (Vercel → Project → Settings → 
 
 ## Deploy (Vercel + Supabase)
 
-1. **Supabase**: create a project (region: Canada Central). Copy the *transaction pooler* connection string (Project Settings → Database). Create a **public** Storage bucket `media`. Copy the project URL and the `service_role` key (Project Settings → API).
+1. **Supabase**: create a project (region: Canada Central). Copy the *transaction pooler* connection string (Project Settings → Database). Copy the Project URL (Project Settings → Data API) and a secret key (Project Settings → API Keys: `sb_secret_…`, or the legacy `service_role` key). The `media` bucket is created automatically on the first upload.
 2. **Vercel**: import the GitHub repository, framework Next.js. Add the environment variables above for Production and Preview.
 3. Deploys run `npm run vercel-build`: database migrations, the non-destructive seed (creates what is missing, never overwrites the owner's edits) and the Next.js build. To run them by hand instead:
    ```bash

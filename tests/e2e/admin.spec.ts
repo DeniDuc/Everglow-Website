@@ -20,7 +20,11 @@ test("admin requires login and shows the inventory", async ({ page }) => {
 
   // Two-step verification is required for staff: enrol with an authenticator code on first sign-in.
   await page.goto("/admin/inventory");
-  if (page.url().includes("setup2fa=required")) {
+  // The redirect to 2FA setup can arrive after the first paint (streamed), so wait for either screen.
+  const inventoryLink = page.getByRole("link", { name: /20x20 Marquee Tent/ });
+  const turnOn = page.getByRole("button", { name: "Turn on" });
+  await expect(inventoryLink.or(turnOn)).toBeVisible({ timeout: 15_000 });
+  if (await turnOn.isVisible()) {
     await page.getByRole("button", { name: "Turn on" }).click();
     const secret = (await page.locator(".font-mono").textContent())!.trim();
     await page.getByLabel("Code").fill(new TOTP({ secret: Secret.fromBase32(secret) }).generate());

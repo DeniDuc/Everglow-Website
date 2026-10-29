@@ -1,0 +1,847 @@
+{
+  "source": "https://everglowet.com",
+  "takenAt": "2026-10-29T02:49:56.643Z",
+  "collections": [
+    {
+      "booqableId": "e07c0f14-dd6d-442b-bbcc-818165e2cd68",
+      "name": "All products",
+      "slug": "all",
+      "descriptionHtml": "<p>Everything you need to host a great event — tents, tables, chairs, and more. Clean, reliable, and easy to set up. Perfect for weddings, parties, and special moments.</p>",
+      "image": null,
+      "parentBooqableId": null,
+      "position": 1,
+      "system": true,
+      "productBooqableIds": [
+        "d15aeae0-9a24-4ab1-ae0c-d194c998daa0",
+        "78cd6b62-7965-424a-b435-9a03196661a5",
+        "a7fe6f56-ad8a-4393-912d-191bb9ffaa05",
+        "ebc54478-bf80-43f1-bf37-b02148006907",
+        "c5d12854-c92e-4080-aeff-b92e678469ea",
+        "d92c7630-5f2a-4650-8df5-9883ecbc9801",
+        "20046dd8-1c8b-4d19-a6a6-c94e194af433",
+        "c374f442-ecc5-4b58-b555-23fa078f4b76",
+        "4cf15c23-61a4-4695-97d4-08139ebe2405",
+        "691e1b74-52bf-4a50-941a-caaf1fbcae44",
+        "223e5f14-1cce-4e04-96ff-02dcfa0a0480",
+        "0aa62875-f114-4649-adcf-0f3bde8dba29",
+        "06ec15e6-25e4-4a36-a716-ee2637ce6def",
+        "a98d07e7-0f15-4ddc-afc5-63a111bda8a2",
+        "16430ca5-b195-4c23-a482-24d15171bbfc",
+        "ab5435c4-8fe1-4e0b-bb7c-b3507c06efb7",
+        "64a3b340-452a-4a06-831c-71eba18f8909",
+        "95c11370-990d-4643-891b-9e99f0cdf677",
+        "ad3801ed-b9dc-49dd-a909-8e9f46d8ea71"
+      ]
+    },
+    {
+      "booqableId": "f0a10c9a-4a30-453e-8f7d-3c87c932df19",
+      "name": "Rental Catalogue",
+      "slug": "rental-catalogue",
+      "descriptionHtml": "<p data-start=\"157\" data-end=\"350\">Everything you need to host a great event — tents, tables, chairs, and more. Clean, reliable, and easy to set up. Perfect for weddings, parties, and special moments.</p>",
+      "image": "/media/collections/e91c9a73af9bea2a.webp",
+      "parentBooqableId": null,
+      "position": 1,
+      "system": false,
+      "productBooqableIds": [
+        "d15aeae0-9a24-4ab1-ae0c-d194c998daa0",
+        "78cd6b62-7965-424a-b435-9a03196661a5",
+        "a7fe6f56-ad8a-4393-912d-191bb9ffaa05",
+        "ebc54478-bf80-43f1-bf37-b02148006907",
+        "c5d12854-c92e-4080-aeff-b92e678469ea",
+        "d92c7630-5f2a-4650-8df5-9883ecbc9801",
+        "20046dd8-1c8b-4d19-a6a6-c94e194af433",
+        "c374f442-ecc5-4b58-b555-23fa078f4b76",
+        "4cf15c23-61a4-4695-97d4-08139ebe2405",
+        "691e1b74-52bf-4a50-941a-caaf1fbcae44",
+        "223e5f14-1cce-4e04-96ff-02dcfa0a0480",
+        "0aa62875-f114-4649-adcf-0f3bde8dba29",
+        "06ec15e6-25e4-4a36-a716-ee2637ce6def",
+        "a98d07e7-0f15-4ddc-afc5-63a111bda8a2",
+        "16430ca5-b195-4c23-a482-24d15171bbfc",
+        "ab5435c4-8fe1-4e0b-bb7c-b3507c06efb7",
+        "64a3b340-452a-4a06-831c-71eba18f8909",
+        "95c11370-990d-4643-891b-9e99f0cdf677",
+        "ad3801ed-b9dc-49dd-a909-8e9f46d8ea71"
+      ]
+    },
+    {
+      "booqableId": "3df2293d-4754-44e6-aedf-729e52b65f13",
+      "name": "Tents",
+      "slug": "tents",
+      "descriptionHtml": "<p>Hosting an outdoor event and need&nbsp;<strong>tent rentals in Winnipeg</strong>? We’ve got you covered! Our high-quality tent rentals provide the perfect solution for weddings, corporate events, birthday parties, festivals, and more. Designed to protect your guests from unpredictable weather while adding a touch of elegance to your event, our tents come in a variety of sizes and styles to suit any occasion.</p>",
+      "image": "/media/collections/99eaa624fffe1b84.webp",
+      "parentBooqableId": "f0a10c9a-4a30-453e-8f7d-3c87c932df19",
+      "position": 1,
+      "system": false,
+      "productBooqableIds": [
+        "d15aeae0-9a24-4ab1-ae0c-d194c998daa0",
+        "78cd6b62-7965-424a-b435-9a03196661a5",
+        "a7fe6f56-ad8a-4393-912d-191bb9ffaa05",
+        "c5d12854-c92e-4080-aeff-b92e678469ea",
+        "691e1b74-52bf-4a50-941a-caaf1fbcae44"
+      ]
+    },
+    {
+      "booqableId": "57beeae2-963b-4c55-b30f-527bce060171",
+      "name": "Tables",
+      "slug": "tables",
+      "descriptionHtml": "<p>Need space for cake, gifts, or grandma’s secret salad? We’ve got you. Tables that do the job — and look good doing it.</p>",
+      "image": "/media/collections/287efcf027470235.webp",
+      "parentBooqableId": "f0a10c9a-4a30-453e-8f7d-3c87c932df19",
+      "position": 2,
+      "system": false,
+      "productBooqableIds": [
+        "223e5f14-1cce-4e04-96ff-02dcfa0a0480",
+        "0aa62875-f114-4649-adcf-0f3bde8dba29",
+        "a98d07e7-0f15-4ddc-afc5-63a111bda8a2"
+      ]
+    },
+    {
+      "booqableId": "5734cea7-9bdc-4a7f-bdd8-1fe8d09448d5",
+      "name": "Chairs",
+      "slug": "chairs",
+      "descriptionHtml": "<p>Sturdy, clean, and comfy. Perfect for weddings, parties, and any event. Classic white — fits any style. Easy to move, quick to set up.</p>",
+      "image": "/media/collections/e1bb097751e8fbbd.webp",
+      "parentBooqableId": "f0a10c9a-4a30-453e-8f7d-3c87c932df19",
+      "position": 3,
+      "system": false,
+      "productBooqableIds": [
+        "95c11370-990d-4643-891b-9e99f0cdf677",
+        "ad3801ed-b9dc-49dd-a909-8e9f46d8ea71"
+      ]
+    },
+    {
+      "booqableId": "2dd3315b-0c82-40c0-9325-dfef33358b83",
+      "name": "Event Essentials",
+      "slug": "eventessentials",
+      "descriptionHtml": "<p>\n\nLooking for those finishing touches? Our Event Essentials collection includes everything beyond tents, tables, and chairs. Browse a wide selection of linens, lawn games, lighting, heaters, décor, and other event accessories designed to make your celebration comfortable, stylish, and memorable. We're constantly adding new rental items to help you create the perfect event, all in one place.\n</p>",
+      "image": "/media/collections/b9505b53c2aaa365.webp",
+      "parentBooqableId": "f0a10c9a-4a30-453e-8f7d-3c87c932df19",
+      "position": 4,
+      "system": false,
+      "productBooqableIds": [
+        "ebc54478-bf80-43f1-bf37-b02148006907",
+        "d92c7630-5f2a-4650-8df5-9883ecbc9801",
+        "20046dd8-1c8b-4d19-a6a6-c94e194af433",
+        "c374f442-ecc5-4b58-b555-23fa078f4b76",
+        "4cf15c23-61a4-4695-97d4-08139ebe2405",
+        "06ec15e6-25e4-4a36-a716-ee2637ce6def",
+        "16430ca5-b195-4c23-a482-24d15171bbfc",
+        "ab5435c4-8fe1-4e0b-bb7c-b3507c06efb7",
+        "64a3b340-452a-4a06-831c-71eba18f8909"
+      ]
+    },
+    {
+      "booqableId": "b043c957-44e4-4cbf-9168-4de8f19e84a4",
+      "name": "Linen",
+      "slug": "linen",
+      "descriptionHtml": "<p><i><strong>Renting linens in Winnipieg for your event is simple.<br>Just select the style.<br>Once you do this you can pick size, color and quantity.</strong></i></p>",
+      "image": "/media/collections/2e29436006b26db8.webp",
+      "parentBooqableId": "2dd3315b-0c82-40c0-9325-dfef33358b83",
+      "position": 1,
+      "system": false,
+      "productBooqableIds": [
+        "06ec15e6-25e4-4a36-a716-ee2637ce6def",
+        "16430ca5-b195-4c23-a482-24d15171bbfc"
+      ]
+    },
+    {
+      "booqableId": "7211d9d9-78b7-47c9-bc07-c7773aff5acc",
+      "name": "Lawn Games",
+      "slug": "lawn-games",
+      "descriptionHtml": "<p>Keep the fun going long after the food is served. Our lawn games and event activities are perfect for guests of all ages, adding laughter, friendly competition, and unforgettable memories to any celebration. Whether you're planning a backyard party, wedding, corporate event, or family gathering, our growing collection of games has something for everyone.</p>",
+      "image": "/media/collections/069966b3bcaf4afc.webp",
+      "parentBooqableId": "2dd3315b-0c82-40c0-9325-dfef33358b83",
+      "position": 2,
+      "system": false,
+      "productBooqableIds": [
+        "d92c7630-5f2a-4650-8df5-9883ecbc9801",
+        "20046dd8-1c8b-4d19-a6a6-c94e194af433",
+        "c374f442-ecc5-4b58-b555-23fa078f4b76",
+        "4cf15c23-61a4-4695-97d4-08139ebe2405",
+        "64a3b340-452a-4a06-831c-71eba18f8909"
+      ]
+    },
+    {
+      "booqableId": "82a23fd2-f348-418a-bdb3-ad2da519e85c",
+      "name": "Event Lighting",
+      "slug": "event-lighting",
+      "descriptionHtml": "<p>The right lighting can completely transform your event. Browse our selection of event lighting, stands, and decorative lighting solutions to create the perfect ambiance for weddings, parties, corporate events, and special celebrations. Whether you're looking for a soft, elegant glow or a bold statement, our lighting rentals help bring your vision to life.</p>",
+      "image": "/media/collections/111d868598107b89.webp",
+      "parentBooqableId": "2dd3315b-0c82-40c0-9325-dfef33358b83",
+      "position": 3,
+      "system": false,
+      "productBooqableIds": [
+        "ebc54478-bf80-43f1-bf37-b02148006907"
+      ]
+    }
+  ],
+  "products": [
+    {
+      "booqableId": "d15aeae0-9a24-4ab1-ae0c-d194c998daa0",
+      "name": "20x20 Marquee Tent",
+      "slug": "20x20-marquee-tent",
+      "descriptionHtml": "<p>Our 20 × 20 frame tent is a spacious and reliable option for weddings, parties, and other outdoor events. With 400 sq ft of covered space, it provides plenty of room for seating, dining, and activities.<b><br><br>Tent Info</b><br><br>Size: 20′ × 20′<br>Coverage area: 400 sq ft<b><br><br>Seating capacity</b><br><br>Up to 32 guests with round tables<br>Up to 40 guests with rectangular tables<b><br><br>Optional Add-Ons (additional cost)</b><br><br>• Side walls<br>• Event lighting<br>• Concrete blocks<b><br><br>Installation</b><br><br>Tent setup and takedown are included with the rental.<b><br><br>DELIVERY REQUIRED<br><br>THIS TENT IS NOT AVAILABLE FOR CUSTOMER PICKUP. DELIVERY AND PROFESSIONAL INSTALLATION ARE REQUIRED.</b><br><br>Delivery and pickup start from Medium Delivery and are charged separately.<b><br><br>Additional Notes</b><br><br>If the tent cannot be staked into the ground (for example on asphalt, concrete, or gravel), it will need to be secured with concrete blocks, which are available for an additional charge.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/e490cfde2e93e89c.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/b857fb966891b8a0.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "ad8a235e-6e8e-4007-bc28-70f33914d431",
+          "name": "20x20 Marquee Tent - With Out Wall",
+          "slug": "20x20-marquee-tent",
+          "basePriceCents": 65000,
+          "variationValues": [
+            "With Out Wall"
+          ]
+        }
+      ]
+    },
+    {
+      "booqableId": "78cd6b62-7965-424a-b435-9a03196661a5",
+      "name": "20x40 Marquee Tent",
+      "slug": "20x40-marquee-tent",
+      "descriptionHtml": "<p>Elevate your next event with our expansive 20' x 40' marquee tent, perfect for weddings, corporate events, and special celebrations. Experience elegance and versatility with a setup designed to fit your unique needs.<b><br><br>Tent Info</b><br><br>Size: 20′ × 40′<br>Coverage area: 800 sq ft<b><br><br>Seating capacity</b><br><br>Up to 64 guests with round tables<br>Up to 80 guests with rectangular tables<b><br><br>Optional Add-Ons (additional cost)</b><br><br>• Side walls<br>• Event lighting<br>• Concrete blocks<b><br><br>Installation</b><br><br>Tent setup and takedown are included with the rental.<b><br><br>DELIVERY REQUIRED<br><br>THIS TENT IS NOT AVAILABLE FOR CUSTOMER PICKUP. DELIVERY AND PROFESSIONAL INSTALLATION ARE REQUIRED.</b><br><br>Delivery and pickup start from Medium Delivery and are charged separately.<b><br><br>Additional Notes</b><br><br>If the tent cannot be staked into the ground (for example on asphalt, concrete, or gravel), it will need to be secured with concrete blocks, which are available for an additional charge.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/36adff76481d0a75.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/2295742409e1b389.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "36825485-ebea-4e53-a2cf-04e02032cf04",
+          "name": "20x40 Marquee Tent",
+          "slug": "20x40-marquee-tent",
+          "basePriceCents": 85000,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "a7fe6f56-ad8a-4393-912d-191bb9ffaa05",
+      "name": "20x60 Marquee Tent",
+      "slug": "20x60-marquee-tent",
+      "descriptionHtml": "<p>Maximize your event's potential with our 20' x 60' marquee tent. Covering 1200 square feet with elegant 16' high peaks, this tent offers a grand and inviting atmosphere perfect for large gatherings.<b><br><br>Tent Info</b><br><br>Size: 20′ × 60′<br>Coverage area: 1200 sq ft<b><br><br>Seating capacity</b><br><br>Up to 96 guests with round tables<br>Up to 120 guests with rectangular tables<b><br><br>Optional Add-Ons (additional cost)</b><br><br>• Side walls<br>• Event lighting<br>• Concrete blocks<b><br><br>Installation</b><br><br>Tent setup and takedown are included with the rental.<b><br><br>DELIVERY REQUIRED<br><br>THIS TENT IS NOT AVAILABLE FOR CUSTOMER PICKUP. DELIVERY AND PROFESSIONAL INSTALLATION ARE REQUIRED.</b><br><br>Delivery and pickup start from<u><b> Large Delivery &amp; Pickup</b></u> and are charged separately.<b><br><br>Additional Notes</b><br><br>If the tent cannot be staked into the ground (for example on asphalt, concrete, or gravel), it will need to be secured with concrete blocks, which are available for an additional charge.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/efa3188061fb9534.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/8e4f23e3d1ee41ba.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "e7223186-ca23-4203-ada6-b99443ed2b40",
+          "name": "20x60 Marquee Tent",
+          "slug": "20x60-marquee-tent",
+          "basePriceCents": 135000,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "ebc54478-bf80-43f1-bf37-b02148006907",
+      "name": "48ft Strand Of Bistro Lights (24 LIGHT)",
+      "slug": "48ft-led",
+      "descriptionHtml": "<p>These stylish lights feature a black finish and are designed for indoor and outdoor use, making them perfect for tents, wedding decor, backdrops or anywhere decorative and accent light is desired. Each strand includes a 48 foot cord with 24 LED filament Edison bulbs spaced 2 feet apart. You can connect up to 45 strands together.<br><br>•UL certified for wet location<br>•Volts: 125 V<br>•Indoor or Outdoor use<br>•24 Suspended sockets – 60.9 cm (24 in.) apart<br>•Shatter-resistant plastic bulbs<br>•Bulb base: E26<br>•Connect up to 45 sets of strings<br>•Actual wattage: 1W<br>•Bulb brightness (lumens): 60 lm</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/6e63a7a393e55ee5.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "f004d46f-8895-481c-a9d2-7168b50f9a8e",
+          "name": "48ft Strand Of Bistro Lights (24 LIGHT)",
+          "slug": "48ft-led",
+          "basePriceCents": 3000,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "c5d12854-c92e-4080-aeff-b92e678469ea",
+      "name": "8x8 Pop Up Tent",
+      "slug": "8x8-pop-up-tent",
+      "descriptionHtml": "<p>Elevate your outdoor gatherings with our sturdy and spacious 8' x 8' Pop-Up Tent in Winnipeg! Designed for rapid assembly and exceptional durability, it's the perfect solution for any event.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/b53e510cbb5e63eb.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "8a723262-e44c-4623-999e-6bdd06b359c2",
+          "name": "8x8 Pop Up Tent",
+          "slug": "8x8-pop-up-tent",
+          "basePriceCents": 9000,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "d92c7630-5f2a-4650-8df5-9883ecbc9801",
+      "name": "Cornhole Toss",
+      "slug": "cornhole-toss",
+      "descriptionHtml": "<p>Bring classic backyard fun to the next level with the Cornhole! Designed for hours of competitive play, this premium set features solid wood tournament-size boards and a smooth bean bag return ramp for quick retrieval. Integrated storage keeps your bags organized, while the durable rope handles make transporting your game easy and convenient. Perfect for family gatherings, tailgates, or neighborhood tournaments, Heritage Cornhole delivers a timeless game experience everyone will enjoy.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/be1bf8ba18332f7d.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/24625790955d766d.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/49cc8fc407364026.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/714bb9a5e4aa2e49.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/a9d98f90968b5ea8.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "43e6119d-3695-4850-9afe-1f32b19775c6",
+          "name": "Cornhole Toss",
+          "slug": "cornhole-toss",
+          "basePriceCents": 4900,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "287f9876-101b-47ef-af5a-d0a7a6015ac8",
+      "name": "🛒 CUSTOMER PICKUP: FREE (NOT APLICABLE FOR TENTS)",
+      "slug": "customer-pickup-free-not-aplicable-for-tents",
+      "descriptionHtml": null,
+      "trackingType": "none",
+      "priceType": "simple",
+      "productType": "service",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [],
+      "variants": [
+        {
+          "booqableId": "d93aeeee-32bf-4b50-a8fb-703017ca66a3",
+          "name": "🛒 CUSTOMER PICKUP: FREE (NOT APLICABLE FOR TENTS)",
+          "slug": "customer-pickup-free-not-aplicable-for-tents",
+          "basePriceCents": 0,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "20046dd8-1c8b-4d19-a6a6-c94e194af433",
+      "name": "Easy Set-Up Badminton Set",
+      "slug": "easy-set-up-badminton-set",
+      "descriptionHtml": "<p>Enjoy fast-paced backyard fun with the Penn Easy Setup Badminton! Designed for quick assembly, this set can be ready in minutes and easily folds into a compact carry caddy for effortless transport. Featuring a durable steel base and premium one-piece aluminum rackets with cushioned grips, this set is perfect for players of all skill levels. Whether at family gatherings, tailgates, or casual outdoor play, Penn Easy Setup Badminton delivers hours of active, competitive fun for ages 8 and up.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/14c0211883afe51c.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/b8027fe5bdfa2954.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/9c91cf2921a1dbdd.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/2a0878052d97220e.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/699eef634348f8cc.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "62f4b392-78eb-4fe7-83b8-c141386fc3e6",
+          "name": "Easy Set-Up Badminton Set",
+          "slug": "easy-set-up-badminton-set",
+          "basePriceCents": 3500,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "c374f442-ecc5-4b58-b555-23fa078f4b76",
+      "name": "Giant Guess Who?",
+      "slug": "giant-guess-who",
+      "descriptionHtml": "<p>Go big with one of the world’s favorite guessing games! The Giant Guess Who? brings supersized fun to family game night, backyard gatherings, or classroom play. Players take turns asking clever yes-or-no questions to narrow down the possibilities and reveal their opponent’s mystery character. With giant boards and oversized character cards, the fun is easy to see and enjoy for players of all ages. Quick to set up and simple to play, Giant Guess Who? makes a classic game even more exciting.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/6e9f575f449d613c.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/522d6b5501e64c28.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/354f558d8fb57d51.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/c87ec8ebf97a27db.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "ac0528b8-bf6d-4841-a778-619b288bb31e",
+          "name": "Giant Guess Who?",
+          "slug": "giant-guess-who",
+          "basePriceCents": 4900,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "4cf15c23-61a4-4695-97d4-08139ebe2405",
+      "name": "Giant KerPlunk",
+      "slug": "giant-kerplunk",
+      "descriptionHtml": "<p>Bring larger-than-life fun to your next game night or backyard party with the Giant KerPlunk! This oversized version of the classic game challenges players to carefully remove sticks while trying not to let the balls tumble down. The suspense builds with every turn as the tower empties — who will cause the cascade? Designed for indoor and outdoor play, Giant KerPlunk is quick to set up, easy to play, and guaranteed to keep family and friends entertained for hours.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/245b0db57a7f12e9.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/dd9db1ef3fe46361.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/240a0be225f010b8.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/362b8bb539d2ca79.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "d4fb8307-78b3-44fa-b256-0191440db472",
+          "name": "Giant KerPlunk",
+          "slug": "giant-kerplunk",
+          "basePriceCents": 4900,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "691e1b74-52bf-4a50-941a-caaf1fbcae44",
+      "name": "Pop Up Tent 10x20",
+      "slug": "pop-up-tent-10x20",
+      "descriptionHtml": "<p>Our 10 × 20 pop-up tent is a practical and versatile option for smaller outdoor events, backyard gatherings, vendor booths, food stations, and other casual setups. With 200 sq ft of covered space, it provides dependable shelter and shade without requiring a larger formal tent.<b><br><br>Tent Info</b><br><br>Size: 10′ × 20′<br>Coverage area: 200 sq ft<b><br><br>Best For</b><br><br>• Backyard gatherings<br>• Food and beverage stations<br>• Vendor booths<br>• Birthday parties<br>• Registration and check-in areas<br>• Gift or dessert tables<br>• Small casual events<b><br><br>Optional Add-Ons (additional cost)</b><br><br>• 6′ rectangular tables<br>• White folding chairs<br>• White padded chairs<b><br><br>Installation</b><br><br>Self-pickup and drop-off are available. Delivery is also available.<b><br><br>SITE REQUIREMENTS<br><br>THIS TENT MUST BE INSTALLED ON GRASS OR SOIL AND IS NOT SUITABLE FOR ASPHALT, CONCRETE, GRAVEL, OR OTHER SURFACES WHERE STAKES CANNOT BE USED.<br><br>Additional Notes</b><br><br>This tent is best suited for smaller setups where the main need is shade or weather coverage for a specific area. For seated dining layouts or larger events, a larger tent is recommended.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/a983e4b38cbce843.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/4249298dbbefc1f4.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/6da30ef00352ad2d.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "67782e58-95e6-42a5-9106-12da2f34dbbc",
+          "name": "Pop Up Tent 10x20",
+          "slug": "pop-up-tent-10x20",
+          "basePriceCents": 20000,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "223e5f14-1cce-4e04-96ff-02dcfa0a0480",
+      "name": "Rectangular Table 6ft",
+      "slug": "rectangular-table-6ft",
+      "descriptionHtml": "<p>Our 6 ft plastic folding tables are a practical and versatile option for weddings, parties, meetings, and other events. The durable plastic top is waterproof and stain-resistant, making these tables suitable for both indoor and outdoor use.</p>\n<p>The tables fold in half and include built-in handles, making them easy to transport and store. Their lightweight design allows for quick setup and convenient handling.</p>\n<p><strong>Table Info</strong></p>\n<p>Length: 72″ (6 ft)<br>\nWidth: 30″<br>\nHeight: 29.5″<br>\nWeight: 28.6 lbs (13 kg)<br>\nMaterial: Plastic</p>\n<p><strong>Seating capacity</strong></p>\n<p>Up to 6 people comfortably.<br>\nUp to 8 people maximum (tight seating).</p>\n<p><strong>Transport</strong></p>\n<p>Thanks to the fold-in-half design, these tables can usually fit in a sedan, SUV, or minivan.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/6b2ea8fbb0413656.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "b1c6ca3b-1bdd-4963-84d5-e39d5b5abb68",
+          "name": "Rectangular Table 6ft",
+          "slug": "rectangular-table-6ft",
+          "basePriceCents": 1000,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "0aa62875-f114-4649-adcf-0f3bde8dba29",
+      "name": "Rectangular Table 8ft",
+      "slug": "rectangular-table-8ft",
+      "descriptionHtml": "<p>Our 8 ft plastic tables are a sturdy and spacious option for large events such as weddings, banquets, and community gatherings. The durable plastic top is waterproof and stain-resistant, making the tables suitable for both indoor and outdoor use.</p>\n<p>These tables are strong, reliable, and designed for commercial event use.</p>\n<p><strong>Table Info</strong></p>\n<p>Length: 96″ (8 ft)<br>\nWidth: 30″<br>\nHeight: 29.25″</p>\n<p>Net weight: 40.8 lb (18.5 kg)<br>\nRecommended maximum load: 1000 lb (453 kg)</p>\n<p>Material: Plastic</p>\n<p><strong>Seating capacity</strong></p>\n<p>Up to 8 people comfortably.<br>\nUp to 10 people maximum.</p>\n<p><strong>Transport</strong></p>\n<p>These tables <strong>do not fold</strong>. Because of their full 8 ft length, they will <strong>not fit in most cars or small SUVs</strong>.<br>\nA <strong>minivan, pickup truck, cargo van, or larger vehicle</strong> is recommended for transport.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/2c5885b9fdd2cdd2.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/1b2b28ec5da82c9b.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "f6b448ea-8f41-446d-9507-382575310606",
+          "name": "Rectangular Table 8ft",
+          "slug": "rectangular-table-8ft",
+          "basePriceCents": 1200,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "06ec15e6-25e4-4a36-a716-ee2637ce6def",
+      "name": "Rectangular Table Cloth 60\"x126\"",
+      "slug": "rectangular-table-cloth-60-x126",
+      "descriptionHtml": "<p>For the perfect \"halfway to the floor\" drop on all sides of an 8 foot long rectangular banquet table</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/3b29fcbf389dcaf0.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/9ed1fc3bd62fbdad.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "9a7ff9b7-40d5-4fbe-a85a-eda0cd9b4fd7",
+          "name": "Rectangular Table Cloth 60\"x126\" - Black",
+          "slug": "rectangular-table-cloth-60-x126-black",
+          "basePriceCents": 1200,
+          "variationValues": [
+            "Black"
+          ]
+        },
+        {
+          "booqableId": "3dc236f2-904c-4f29-90e0-79642797972e",
+          "name": "Rectangular Table Cloth 60\"x126\" - White",
+          "slug": "rectangular-table-cloth-60-x126",
+          "basePriceCents": 1200,
+          "variationValues": [
+            "White"
+          ]
+        }
+      ]
+    },
+    {
+      "booqableId": "a98d07e7-0f15-4ddc-afc5-63a111bda8a2",
+      "name": "Round Table 5ft",
+      "slug": "round-table-5ft",
+      "descriptionHtml": "<p>Our 5 ft round tables are a practical and elegant option for weddings, parties, and other events. Their round design makes it easy for guests to sit together and comfortably enjoy conversations during the event.<br><br>These tables are made of durable plastic with sturdy legs and are suitable for both indoor and outdoor use. They are widely used for weddings and can comfortably seat up to 8 people.<b><br><br>Table Info</b><br><br>Diameter: 5′<br>Height: 30″<br>Material: Plastic<b><br><br>Seating capacity</b><br><br>Up to 8 people per table.<b><br><br>Vehicle transport</b><br><br>A 5 ft round table will not fit in a sedan, SUV, or minivan. A pickup truck, cargo van, or larger vehicle is required for transport.<b><br><br>FAQ</b><br><br>Do the tables fold?<br>No. These tables do not fold.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/11a9c517a8f2a8a0.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/8a1fc4889aff1ab7.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "b1b4b117-ae56-4b33-86cd-859ac5948c19",
+          "name": "Round Table 5ft",
+          "slug": "round-table-5ft",
+          "basePriceCents": 1200,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "16430ca5-b195-4c23-a482-24d15171bbfc",
+      "name": "Round Table Cloths 120\"",
+      "slug": "round-table-cloths-120",
+      "descriptionHtml": "<p>The 120\" Round tablecloths fits a 5' (60\") round table with drape that goes all the way to the ground. This is perfect for indoor events where the linen will not be brushing against dirt.</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/fe690ffd5e27d1b4.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/215913900fc6a95b.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "3483b6c6-4b23-4a06-b8be-5d7a2a02b2a7",
+          "name": "Round Table Cloths 120\" - Black",
+          "slug": "round-table-cloths-120-black",
+          "basePriceCents": 1200,
+          "variationValues": [
+            "Black"
+          ]
+        },
+        {
+          "booqableId": "7effc57f-2fcf-4803-adff-c637ed6b681d",
+          "name": "Round Table Cloths 120\" - White",
+          "slug": "round-table-cloths-120",
+          "basePriceCents": 1200,
+          "variationValues": [
+            "White"
+          ]
+        }
+      ]
+    },
+    {
+      "booqableId": "ab5435c4-8fe1-4e0b-bb7c-b3507c06efb7",
+      "name": "Rubbermaid Cooler",
+      "slug": "rubbermaid-cooler",
+      "descriptionHtml": "<p>Perfect for camping, road trips, or backyard BBQs. Just add ice and keep your drinks or food cold for hours.</p>",
+      "trackingType": "trackable",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/02987de3e36979ca.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/b97e234f53214ce6.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/7abcba329aab3c4c.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "80d5a179-ae42-495b-8516-34a5d22c1cf5",
+          "name": "Rubbermaid Cooler - Basic",
+          "slug": "rubbermaid-cooler",
+          "basePriceCents": 1000,
+          "variationValues": [
+            "Basic"
+          ]
+        },
+        {
+          "booqableId": "0b93ed92-236b-4d85-bc92-1b42ddff94a7",
+          "name": "Rubbermaid Cooler - Wheeled",
+          "slug": "rubbermaid-cooler-wheeled",
+          "basePriceCents": 1500,
+          "variationValues": [
+            "Wheeled"
+          ]
+        }
+      ]
+    },
+    {
+      "booqableId": "64a3b340-452a-4a06-831c-71eba18f8909",
+      "name": "Tetris XL Tumble",
+      "slug": "tetris-xl-tumble",
+      "descriptionHtml": "<p>Tetris® XL Tumble is an exhilarating new stacking game based on the iconic Tetris game. Designed to challenge players with a dynamic, tilting tower, players strategically stack oversized Tetris blocks as the tower shifts and sways. With each move, the balance of the tower changes, so stack carefully! Play head-to-head to see who can topple the tower first or play solo to see how high you can stack it! Tetris XL Tumble brings a fresh, engaging spin to one of the world's most famous puzzle games, making it a must-have game for all ages.<br></p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/b033a1fefa5f14cd.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/e13509f7906fd083.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/fe32bf6af1d5e0d2.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "122209fd-7939-4c6b-b7e0-a20a1ae6dc50",
+          "name": "Tetris XL Tumble",
+          "slug": "tetris-xl-tumble",
+          "basePriceCents": 4500,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "95c11370-990d-4643-891b-9e99f0cdf677",
+      "name": "White Folding Chair",
+      "slug": "white-folding-chair",
+      "descriptionHtml": "<p>Our white folding chairs are a simple and elegant seating option for weddings, parties, and other events. Their foldable design makes them easy to transport, store, and set up, helping you save time during event preparation.<br><br>All chairs are commercial rental quality and are carefully inspected before each rental to ensure they are clean, reliable, and ready for use. They are sturdy, practical, and suitable for both indoor and outdoor events.<b><br><br>Dimensions (folded):</b></p><p><br>2.5″ D × 15.5″ W × 41.5″ H<b><br><br>Dimensions (unfolded):</b></p><p><br>15.5″ D × 15.5″ W × 34″ H<b><br><br>Vehicle capacity (approximate):</b></p><p><br>• Sedan (Civic, Corolla, etc.): up to 50 chairs<br>• SUV: up to 70 chairs<br>• Minivan: up to 120 chairs</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/d86dcc9e726b24ef.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/916e67d79d0bfe8e.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "b7962a8c-04c0-443e-b13a-dc604c59142f",
+          "name": "White Folding Chair",
+          "slug": "white-folding-chair",
+          "basePriceCents": 190,
+          "variationValues": []
+        }
+      ]
+    },
+    {
+      "booqableId": "ad3801ed-b9dc-49dd-a909-8e9f46d8ea71",
+      "name": "White Resin Chair",
+      "slug": "white-resin-chair",
+      "descriptionHtml": "<p>Our white resin chairs are an elegant and comfortable seating option, perfect for weddings, parties, and other special events. Each chair features a padded seat for added comfort, making them ideal for long ceremonies and celebrations.<br><br>All chairs are commercial rental quality and are inspected before each rental to ensure they are clean, sturdy, and event-ready. Suitable for both indoor and outdoor events.<b><br><br>Item Info</b><br><br>Width: 17.5″<br>Seat depth: 14″<br>Seat height: 18″<br>Height: 31″<b><br><br>Vehicle capacity (approximate):</b><br><br>• Sedan (Civic, Corolla, etc.): up to 25 chairs<br>• SUV: up to 40 chairs<br>• Minivan (with 2nd and 3rd rows removed): up to 70 chairs</p>",
+      "trackingType": "bulk",
+      "priceType": "structure",
+      "productType": "rental",
+      "showInStore": true,
+      "sortingWeight": 0,
+      "images": [
+        {
+          "src": "/media/products/fbf574dc5b20dc74.webp",
+          "alt": null
+        },
+        {
+          "src": "/media/products/971015fd3b6ba677.webp",
+          "alt": null
+        }
+      ],
+      "variants": [
+        {
+          "booqableId": "4b307e45-7b54-4bfc-a79f-c831c02deab9",
+          "name": "White Resin Chair",
+          "slug": "white-resin-chair",
+          "basePriceCents": 390,
+          "variationValues": []
+        }
+      ]
+    }
+  ]
+}

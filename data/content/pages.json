@@ -1,0 +1,17 @@
+[
+  {
+    "slug": "customer-responsibility",
+    "title": "Customer Responsibility",
+    "bodyHtml": "<p>Rented equipment is the responsibility of the customer from time of delivery or customer pick-up to the time of the equipment’s return.</p><p>The holder of the credit card will be responsible for any loss or damage of equipment if any occur.</p><p>We ask that everything be returned clean and organized. A minimum $50.00 charge is applied to rental fee if equipment is returned in unclean condition.</p><p><strong>The customer will not abuse, misuse or damage the equipment:</strong></p><ul><li>Keep all rental equipment away from open flame or heat sources.</li><li>Use rental equipment for intended purpose only.</li><li>Place all rental equipment on solid and level surfaces.</li><li>Do not stand on or tilt any of the rental equipment.</li></ul><p>In the event of any accident or incident causing property damage or bodily harm, the customer agrees to take full responsibility and shall indemnify and hold Everglow Events &amp; Tents harmless from any claims or actions. Everglow Events &amp; Tents shall not be responsible for any loss or damage to customer’s property that is in anyway connected with the use or defect of our rental equipment. Everglow Events &amp; Tents makes no warranties as to the equipment’s fitness for any particular purpose.</p>"
+  },
+  {
+    "slug": "terms",
+    "title": "Terms & Conditions",
+    "bodyHtml": "<p><em>The full Terms &amp; Conditions will be published here. Until then, the key rules from our FAQ apply: a 50% deposit secures your booking (25% of the order total is non-refundable), full payment is due 14 days before your event, minor changes are accepted 15 or more days before the event, and cancellations with less than 30 days' notice are not refunded.</em></p>"
+  },
+  {
+    "slug": "privacy",
+    "title": "Privacy Policy",
+    "bodyHtml": "<p><strong>Draft — to be reviewed by Everglow Events &amp; Tents before launch.</strong></p><h2>What we collect</h2><p>When you book or contact us we collect your name, email, phone number, event and delivery address, and the details of your order. Card payments are processed by Stripe; we never see or store your full card number.</p><h2>Why we collect it</h2><p>To confirm and deliver your rental, take payments according to our Terms &amp; Conditions, contact you about your booking, and keep the records the law requires.</p><h2>How we protect it</h2><p>Your personal details are stored encrypted, access is limited to our staff, and our systems are hosted in secure data centres. At pickup or delivery we check a government photo ID to confirm your identity; we record that the ID was checked but we do not keep a copy of it.</p><h2>Your choices</h2><p>You can ask us for a copy of your information or ask us to delete it (except records we must keep for accounting) by emailing <a href=\"mailto:eventseverglow@gmail.com\">eventseverglow@gmail.com</a>. We follow Canada's Personal Information Protection and Electronic Documents Act (PIPEDA).</p>"
+  }
+]

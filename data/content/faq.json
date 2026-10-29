@@ -1,0 +1,42 @@
+[
+  {
+    "question": "How does a booking work in the online store?",
+    "answerHtml": "<p>The best way to book an order is through our online store to determine availability and pricing and book instantly. This makes it possible to get a quote and place a booking in real time 24 hours a day, 7 days a week!<br><br>Pick your desired pickup date and desired return date within the pickup and drop off times available in our system. Now when you add items to your cart the online store will be able to show you if your items are available for your event while you are shopping.<br><br>When you have finished adding items to your cart you can select delivery if that is your choice. (NOTE: If you selected delivery, we contact you the Sunday before your event date to give you exact delivery times). <br>Once you're ready to book, click checkout. You will now be asked to pay 50% of your total by credit card online to secure your booking. Once you pay the 50% deposit an email will be sent to you confirming your booking. That's it, you're booked in. A confirmation email will be sent to you. If you have any questions give us a call <strong>(431) 337-7021</strong>, or if we have any questions about your booking, we will reach out to you.</p>"
+  },
+  {
+    "question": "Can I modify my rental booking?",
+    "answerHtml": "<p>Adding items to your existing order: If you wish to add to your order, please email us at <b>eventseverglow@gmail.com</b> with your request and we will get to it the next time we are in the office.</p> <p> Minor changes: Are accepted 15 or more days prior to your event only.</p> <p> Cancellation refunds: Are not issued for items cancelled with less than 30 days' notice. A 25% deposit fee is non-refundable.</p>"
+  },
+  {
+    "question": "How do I pay?",
+    "answerHtml": "<p>We accept payments via credit card or Visa Debit through our online store. If you have received a quote from us, a 50% payment request will be sent to you online, which can also be paid by credit card or Visa Debit.</p> <p><br><strong>Booking Instantly Online:</strong> When you book online, our system will request a 50% non-refundable deposit to secure your booking.</p> <p><br><strong>Payment Due:</strong> Full payment is due 14 days prior to your event. At that time, we will authorize the payment from the credit card initially used.<br>A credit card and driver’s license must be kept on file for all rentals.</p>"
+  },
+  {
+    "question": "Is there refunds on unused equipment?",
+    "answerHtml": "<p>No refunds will be issued on unused equipment.</p> <p><br>All rental equipment is subject to availability at time of booking.<br>Rentals officially begin upon customer pick-up or delivery drop-off.</p> <p><br>Prices are subject to change without notice. </p>"
+  },
+  {
+    "question": "Where are you located?",
+    "answerHtml": "<p>43 Jim Smith Drive, Winnipeg, R2G 3Y9</p>"
+  },
+  {
+    "question": "What are your delivery options?",
+    "answerHtml": "<p><strong>Self Pickup &amp; Drop-Off — Free</strong><br> Customers can pick up and return most rental items themselves at no charge.<br> <strong>Note:</strong> Tents 20′ × 20′ and larger <strong>cannot be picked up</strong> and <strong>require delivery</strong>.</p> <p><strong>Delivery Options &amp; Rates</strong></p> <p><strong>Small Delivery &amp; Pickup — $80</strong><br> For orders that fit in a standard SUV.<br> Example: several tables or up to 50 chairs.</p> <p><strong>Medium Delivery &amp; Pickup — $120</strong><br> For medium-sized orders that require a larger vehicle.<br> Example: one 20′ × 20′ tent with additional tables or chairs.</p> <p><strong>Large Delivery &amp; Pickup — $200</strong><br> For large orders requiring multiple vehicles or additional staff.<br> Example: large tents or high-volume orders with many tables and chairs.</p> <p><strong>Delivery Notes</strong></p> <ul> <li> All standard deliveries are <strong>curbside only</strong> (items delivered to your driveway or curb). </li> <li> If your location requires <strong>stairs, elevators, long distances</strong>, or other special considerations, please let us know in advance so we can:<br> • Allocate extra time and staff<br> • Bring necessary equipment<br> • Provide accurate pricing </li> <li> Deliveries that require <strong>additional staff, larger vehicles, or special equipment</strong> (forklifts, skid steers, etc.) may incur extra charges. Our team will notify you before any changes are applied.</li></ul><p><b><br>Out of Town Km Charge:<br>Out of town deliveries are an additional $4.00/km on top of the standard fee.</b><br><br> Standard delivery fees are based on deliveries made within Winnipeg city limits.<br></p>"
+  },
+  {
+    "question": "How long do I get my rentals for?",
+    "answerHtml": "<p>Most of our rentals are priced for up to 3 days at a single rate. This means you pay the same price whether you need the item for 3 hours or 3 days. Some items have a daily rental rate, and these prices will be displayed in your cart.</p><p>If you need the items for more than 3 days, an extra daily fee would apply.</p>"
+  },
+  {
+    "question": "What is our Damage Protection Plan?",
+    "answerHtml": "<p><strong>Damage Protection Plan:</strong><br>A 10% damage protection charge will automatically be added to your contract unless you decline it before pickup or delivery by emailing eventseverglow@gmail.com. This plan covers the first $100 of broken or damaged equipment and 50% of any additional damage. The remaining 50% will be the customer's responsibility.</p> <p><br><strong>If Damage Protection is Declined:</strong><br>The customer will be responsible for the full cost of replacement or repair of the equipment.</p> <p><br><strong>Please Note:</strong><br>The Damage Protection Plan is not insurance and does not cover:<br></p> <ul><li>Rental items not returned</li><li>Theft</li><li>Damage from vandalism</li><li>Damage from failure to secure rental items during transport</li><li>Overloading or exceeding the rated capacity of rental items</li><li>Damage to motors or other electronic devices caused by artificial current</li><li>Damage from overturning</li><li>Weather-related damage</li><li>Damage to third-party sub-rental items or specialty linens</li></ul> <p>If the Damage Protection Plan is declined, the client will be responsible for the full retail replacement cost of the damaged items.</p>"
+  },
+  {
+    "question": "Do I need to clean my rentals before return?",
+    "answerHtml": "<p> Yes, rentals need to be wiped before return to avoid additional cleaning charges.<br>Rentals that are visibly dirty or dusty are subject to a cleaning fee that starts at minimum of $50.00 and additional charges for time and chemicals needed to do any deep cleaning on items that are very dirty.</p><p><br>The payment will be taken off of your credit card that you initially paid with.<br> </p>"
+  },
+  {
+    "question": "What information is required at the time of delivery or pickup?",
+    "answerHtml": "<p><h3><strong>Security and Identity Verification</strong></h3> <p>To ensure the safety of our staff, customers, and property, we require identity verification at the time of delivery or pickup.</p> <p>When items are delivered or picked up, we may request the following information:</p> <ul> <li> A valid government-issued photo ID </li> <li> The credit card used for the reservation </li> <li> Signature confirming receipt of the items </li> <li> Signature confirming understanding of Damage Protection Plan (if applicable) </li> </ul> <p>This process helps us prevent fraud and ensures that the items are handed over to the correct person.</p> <h3><strong>Credit Card Policy</strong></h3> <p>The credit card used for booking must be presented at the time of delivery or pickup. We reserve the right to charge this card in case of:</p> <ul> <li> Missing or damaged items </li> <li> Items left unclean or not returned properly </li> <li> Any other violations of our rental agreement </li> </ul> <p>Please note: <strong>We may charge the provided credit card without prior notice</strong> in accordance with our <a href=\"https://drive.google.com/file/d/1KisqklAVuucYxKWXHsmJd7RtzhSVrFyS/view?usp=drive_link\" target=\"_blank\">Terms and Conditions</a>. These charges are only applied in serious or clearly defined cases as outlined in the rental agreement.</p></p>"
+  }
+]

@@ -111,10 +111,12 @@ describe("validatePeriod", () => {
   });
 
   it("builds local times correctly on both sides of a DST change", () => {
-    // Winnipeg: CDT (UTC-5) until 2026-11-01 02:00, then CST (UTC-6).
-    expect(zonedDateTime("2026-10-31", "10:00", TZ).toISOString()).toBe("2026-10-31T15:00:00.000Z");
-    expect(zonedDateTime("2026-11-02", "10:00", TZ).toISOString()).toBe("2026-11-02T16:00:00.000Z");
-    // Spring forward: 2027-03-14.
-    expect(zonedDateTime("2027-03-15", "10:00", TZ).toISOString()).toBe("2027-03-15T15:00:00.000Z");
+    // Uses the last historical transitions: Manitoba stays on UTC-5 permanently from 2026-10-31
+    // (Official Time Act amendment), and older tz databases don't know that yet.
+    // Fall back 2025-11-02: CDT (UTC-5) → CST (UTC-6).
+    expect(zonedDateTime("2025-11-01", "10:00", TZ).toISOString()).toBe("2025-11-01T15:00:00.000Z");
+    expect(zonedDateTime("2025-11-03", "10:00", TZ).toISOString()).toBe("2025-11-03T16:00:00.000Z");
+    // Spring forward 2026-03-08.
+    expect(zonedDateTime("2026-03-09", "10:00", TZ).toISOString()).toBe("2026-03-09T15:00:00.000Z");
   });
 });

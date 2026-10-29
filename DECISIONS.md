@@ -31,6 +31,11 @@ Why things are the way they are. Newest decisions at the top of each section. Ow
 3. **Terms & Conditions section 13** refund tiers: default is "30+ days → refund everything except the non-refundable 25%; under 30 days → no refund", from the FAQ. Replace with the PDF's tiers when available.
 4. Privacy policy text is a draft and must be reviewed.
 
+## Time zone
+
+- Everything is stored in UTC and shown in `America/Winnipeg` using the runtime's tz database (never hard-coded offsets).
+- **Manitoba stays on daylight time permanently from 2026-10-31** (UTC−5 all year; announced 2026-09-17). Servers must run a tz database that includes this change (current Node.js / Vercel runtime). Local machines with older Node versions will show winter times one hour off until updated. Tests use historical (2025) transitions so they pass with any tz database version.
+
 ## Architecture
 
 - **Next.js 16 (App Router) + TypeScript**, deployed on Vercel. Uses Cache Components: storefront pages are prerendered (static HTML, cached data tagged `catalog`/`content`/`settings`) and refreshed on admin saves with `updateTag`. Admin pages render per request.

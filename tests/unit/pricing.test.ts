@@ -186,14 +186,14 @@ describe("computeQuote", () => {
   });
 
   it("sets the balance due date 14 local days before, across the DST change", () => {
-    // DST ends 2026-11-01 in Winnipeg; the due date stays at 10:00 local time.
+    // Across the 2025-11-02 fall-back the due date stays at 10:00 local time.
     const q = quote({
       lines: [rental("x", 10000, 1)],
-      startsAt: zonedDateTime("2026-11-10", "10:00", TZ),
-      endsAt: zonedDateTime("2026-11-11", "10:00", TZ),
-      now: zonedDateTime("2026-09-01", "12:00", TZ),
+      startsAt: zonedDateTime("2025-11-10", "10:00", TZ),
+      endsAt: zonedDateTime("2025-11-11", "10:00", TZ),
+      now: zonedDateTime("2025-09-01", "12:00", TZ),
     });
-    expect(localParts(q.balanceDueAt!, TZ)).toEqual({ date: "2026-10-27", minutes: 600 });
+    expect(localParts(q.balanceDueAt!, TZ)).toEqual({ date: "2025-10-27", minutes: 600 });
   });
 
   it("reports the non-refundable 25%", () => {

@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { localParts, zonedDateTime } from "@/lib/availability/engine";
+import { defaultSettings } from "@/lib/settings-schema";
 import {
   applyBp,
-  cancellationRefund,
+  cancellationOutcome,
   computeQuote,
   rentalDays,
   suggestDeliveryTier,
@@ -202,46 +203,45 @@ describe("computeQuote", () => {
   });
 });
 
-describe("cancellationRefund", () => {
-  const tiers = [
-    { minDaysBefore: 30, refundBp: 10000, label: "30+" },
-    { minDaysBefore: 0, refundBp: 0, label: "<30" },
-  ];
+describe("cancellationOutcome (Terms section 13)", () => {
+  const tiers = defaultSettings.cancellation.tiers;
   const startsAt = new Date("2026-12-31T16:00:00Z");
-  it("31 days before: everything paid back except the non-refundable 25%", () => {
-    const r = cancellationRefund({
-      paidCents: 50000,
+  const run = (paidCents: number, cancelledAt: string) =>
+    cancellationOutcome({
+      paidCents,
       totalCents: 100000,
       startsAt,
-      cancelledAt: new Date("2026-11-30T16:00:00Z"),
+      cancelledAt: new Date(cancelledAt),
       tiers,
       nonRefundableBp: 2500,
     });
-    expect(r.daysBefore).toBe(31);
-    expect(r.refundCents).toBe(25000);
-  });
-  it("29 days before: no refund", () => {
-    const r = cancellationRefund({
-      paidCents: 50000,
-      totalCents: 100000,
-      startsAt,
-      cancelledAt: new Date("2026-12-02T16:00:00Z"),
-      tiers,
-      nonRefundableBp: 2500,
-    });
-    expect(r.daysBefore).toBe(29);
+
+  it("more than 14 days before: 25% kept, the rest of the deposit becomes credit, no cash refund", () => {
+    const r = run(50000, "2026-12-01T16:00:00Z");
+    expect(r.keptCents).toBe(25000);
+    expect(r.creditCents).toBe(25000);
     expect(r.refundCents).toBe(0);
+    expect(r.balanceDueCents).toBe(0);
   });
-  it("never refunds more than was paid", () => {
-    const r = cancellationRefund({
-      paidCents: 10000,
-      totalCents: 100000,
-      startsAt,
-      cancelledAt: new Date("2026-10-01T16:00:00Z"),
-      tiers,
-      nonRefundableBp: 2500,
-    });
-    expect(r.refundCents).toBe(0);
+  it("between 72 hours and 14 days: 50% credit of payments beyond the 25%", () => {
+    const r = run(100000, "2026-12-20T16:00:00Z");
+    expect(r.creditCents).toBe(37500);
+    expect(r.keptCents).toBe(62500);
+    expect(r.tier?.creditValidMonths).toBe(6);
+  });
+  it("less than 72 hours: no credit and the full balance is still owed", () => {
+    const r = run(50000, "2026-12-30T16:00:00Z");
+    expect(r.creditCents).toBe(0);
+    expect(r.keptCents).toBe(50000);
+    expect(r.balanceDueCents).toBe(50000);
+  });
+  it("exactly 72 hours before still counts as the 72h–14d tier", () => {
+    expect(run(50000, "2026-12-28T16:00:00Z").creditCents).toBe(12500);
+  });
+  it("never credits more than was paid above the non-refundable part", () => {
+    const r = run(10000, "2026-10-01T16:00:00Z");
+    expect(r.keptCents).toBe(10000);
+    expect(r.creditCents).toBe(0);
   });
 });
 

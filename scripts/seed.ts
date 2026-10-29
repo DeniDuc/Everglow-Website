@@ -1,7 +1,10 @@
 /**
- * Seed or refresh the database from the Booqable storefront snapshot (data/booqable/catalog.json),
- * the site content (data/content) and the default settings. Safe to run again: rows are matched
- * by Booqable id / slug and updated; owner edits to settings are not overwritten.
+ * Seed the database from the Booqable storefront snapshot (data/booqable/catalog.json),
+ * the site content (data/content) and the default settings.
+ *
+ * Safe to run on every deploy: it only creates what is missing. Products, collections, settings
+ * and pages the owner has edited are never overwritten. Set SEED_REFRESH_CATALOG=1 to re-apply
+ * the snapshot to existing products (development only).
  *
  * Usage: npm run db:seed
  */
@@ -54,8 +57,8 @@ const ops: Record<
   "8x8-pop-up-tent": { stock: 1, points: 10 },
   "rectangular-table-6ft": { stock: 20, points: 4, featured: true },
   "rectangular-table-8ft": { stock: 20, points: 5 },
-  "round-table-5ft": { stock: 10, points: 5 },
-  "white-folding-chair": { stock: 100, points: 1 },
+  "round-table-5ft": { stock: 10, points: 5 }, // Booqable showed 10 reserved / 0 left on #139
+  "white-folding-chair": { stock: 140, points: 1 }, // 140 rented at once on #114
   "white-resin-chair": { stock: 100, points: 1 },
   "rectangular-table-cloth-60-x126": { stock: 20, points: 0, featured: true },
   "round-table-cloths-120": { stock: 20, points: 0 },
@@ -66,7 +69,57 @@ const ops: Record<
   "tetris-xl-tumble": { stock: 1, points: 5, featured: true },
   "cornhole-toss": { stock: 1, points: 5, featured: true },
   "rubbermaid-cooler": { stock: 2, points: 3 },
+  "wall-20x20-tent": { stock: 4, points: 5 },
+  "service-set-up-fee": { stock: 0, points: 0 },
 };
+
+/**
+ * Products that were hidden from the Booqable store but appear on invoices
+ * (sidewalls sold with the 20x20 tent, the custom setup fee).
+ */
+const hiddenProducts: Snapshot["products"] = [
+  {
+    booqableId: "everglow:wall-20x20-tent",
+    name: "Wall 20x20 Tent",
+    slug: "wall-20x20-tent",
+    descriptionHtml: "<p>Sidewall panel for the 20x20 Marquee Tent. One wall covers one 20′ side.</p>",
+    trackingType: "bulk",
+    priceType: "structure",
+    productType: "rental",
+    showInStore: false,
+    sortingWeight: 50,
+    images: [],
+    variants: [
+      {
+        booqableId: "everglow:wall-20x20-tent:default",
+        name: "Wall 20x20 Tent",
+        basePriceCents: 5000,
+        variationValues: [],
+      },
+    ],
+  },
+  {
+    booqableId: "everglow:service-setup-fee",
+    name: "Service SET-UP Fee",
+    slug: "service-set-up-fee",
+    descriptionHtml:
+      "<p>Custom setup service (for example arranging chairs and tables to the customer’s plan). Priced per order.</p>",
+    trackingType: "none",
+    priceType: "fixed",
+    productType: "service",
+    showInStore: false,
+    sortingWeight: 99,
+    images: [],
+    variants: [
+      {
+        booqableId: "everglow:service-setup-fee:default",
+        name: "Service SET-UP Fee",
+        basePriceCents: 3000,
+        variationValues: [],
+      },
+    ],
+  },
+];
 
 /** Booqable used a fake product for "customer pickup"; our checkout has a real choice instead. */
 const skipSlugs = new Set(["customer-pickup-free-not-aplicable-for-tents"]);
@@ -93,7 +146,7 @@ async function main() {
   const faq: { question: string; answerHtml: string }[] = JSON.parse(
     readFileSync(path.join(root, "data/content/faq.json"), "utf8"),
   );
-  const pages: { slug: string; title: string; bodyHtml: string }[] = JSON.parse(
+  const pages: { slug: string; title: string; bodyHtml: string; seoDescription?: string }[] = JSON.parse(
     readFileSync(path.join(root, "data/content/pages.json"), "utf8"),
   );
 
@@ -143,11 +196,30 @@ async function main() {
     if ((await tx.select({ n: sql<number>`count(*)::int` }).from(s.faqItems))[0].n === 0) {
       await tx.insert(s.faqItems).values(faq.map((f, i) => ({ ...f, position: i + 1 })));
     }
-    for (const p of pages) await tx.insert(s.pages).values(p).onConflictDoNothing();
+    // Pages: refresh the shipped text only while the owner hasn't edited the page.
+    for (const p of pages) {
+      await tx
+        .insert(s.pages)
+        .values(p)
+        .onConflictDoUpdate({
+          target: s.pages.slug,
+          set: { title: p.title, bodyHtml: p.bodyHtml, seoDescription: p.seoDescription ?? null },
+          setWhere: sql`${s.pages.version} = 1 and ${s.pages.updatedAt} = ${s.pages.createdAt}`,
+        });
+    }
 
     // Collections (skip Booqable's system "All products").
+    const refresh = process.env.SEED_REFRESH_CATALOG === "1";
     const collectionIds = new Map<string, string>();
     for (const c of snap.collections.filter((c) => !c.system)) {
+      const [existing] = await tx
+        .select({ id: s.collections.id })
+        .from(s.collections)
+        .where(eq(s.collections.booqableId, c.booqableId));
+      if (existing && !refresh) {
+        collectionIds.set(c.booqableId, existing.id);
+        continue;
+      }
       const values = {
         slug: c.slug,
         name: c.name,
@@ -165,13 +237,28 @@ async function main() {
       collectionIds.set(c.booqableId, row.id);
     }
     for (const c of snap.collections.filter((c) => !c.system && c.parentBooqableId)) {
+      if (
+        !refresh &&
+        (
+          await tx
+            .select({ p: s.collections.parentId })
+            .from(s.collections)
+            .where(eq(s.collections.booqableId, c.booqableId))
+        )[0]?.p
+      )
+        continue;
       await tx
         .update(s.collections)
         .set({ parentId: collectionIds.get(c.parentBooqableId!) ?? null })
         .where(eq(s.collections.booqableId, c.booqableId));
     }
 
-    for (const p of snap.products.filter((p) => !skipSlugs.has(p.slug))) {
+    for (const p of [...snap.products.filter((p) => !skipSlugs.has(p.slug)), ...hiddenProducts]) {
+      const [existing] = await tx
+        .select({ id: s.products.id })
+        .from(s.products)
+        .where(eq(s.products.booqableId, p.booqableId));
+      if (existing && !refresh) continue;
       const o = ops[p.slug] ?? { stock: 1, points: 1 };
       const values = {
         slug: p.slug,
@@ -185,7 +272,7 @@ async function main() {
               : ("bulk" as const),
         descriptionHtml: (p.descriptionHtml ?? "").replace(/Winnipieg/g, "Winnipeg"),
         excerpt: excerpt(p.descriptionHtml),
-        priceType: "structure" as const,
+        priceType: p.priceType === "fixed" ? ("fixed" as const) : ("structure" as const),
         periodDays: 3,
         requiresDelivery: o.requiresDelivery ?? false,
         deliveryPoints: o.points,

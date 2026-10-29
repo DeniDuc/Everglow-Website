@@ -22,7 +22,7 @@ export function sanitizeRichText(html: string): string {
       "blockquote",
       "hr",
     ],
-    allowedAttributes: { a: ["href", "target", "rel"] },
+    allowedAttributes: { a: ["href", "target", "rel"], h2: ["id"], h3: ["id"], ul: ["data-level"] },
     allowedSchemes: ["http", "https", "mailto", "tel"],
     transformTags: {
       a: (tagName, attribs) => ({

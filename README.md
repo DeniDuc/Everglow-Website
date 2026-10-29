@@ -56,12 +56,13 @@ Open http://localhost:3000 (store) and http://localhost:3000/admin (sign in with
 
 | Name | Required | What it is |
 | --- | --- | --- |
-| `DATABASE_URL` | yes | Postgres connection string. On Vercel use Supabase's **transaction pooler** URL. |
+| `DATABASE_URL` | yes* | Postgres connection string (Supabase **transaction pooler** URL on Vercel). *Not needed when the Supabase ↔ Vercel integration is installed: `POSTGRES_URL` / `POSTGRES_URL_NON_POOLING` are used automatically. |
 | `NEXT_PUBLIC_SITE_URL` | yes | Public URL, e.g. `https://everglowet.com` (canonical links, sitemap). |
 | `ENCRYPTION_KEY` | yes | 32 random bytes (base64). Encrypts customer personal data. **Back it up in a password manager — without it encrypted data cannot be read.** |
 | `BLIND_INDEX_KEY` | yes | 32 random bytes (base64). Used to look up customers by email. |
-| `STORAGE_DRIVER` | prod | `supabase` in production (`local` writes to `public/uploads`, development only). |
-| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_BUCKET` | prod | Supabase Storage for uploaded photos (public bucket, default `media`). Server-side only. |
+| `STORAGE_DRIVER` | no | Picked automatically: Supabase Storage when `SUPABASE_URL` (or `NEXT_PUBLIC_SUPABASE_URL`) and `SUPABASE_SERVICE_ROLE_KEY` exist, otherwise `public/uploads` (development). |
+| `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_BUCKET` | prod | Supabase Storage for uploaded photos (public bucket `media`, created automatically). Set by the Supabase integration. Server-side only. |
+| `GMAIL_APP_PASSWORD` | prod | Gmail App Password for eventseverglow@gmail.com. All emails (confirmations, reminders, invoices, staff alerts) are sent from that address. Without it emails are skipped. |
 | `SEED_OWNER_EMAIL`, `SEED_OWNER_PASSWORD` | seed | First owner account created by `npm run db:seed`. |
 
 Secrets live only in environment variables (Vercel → Project → Settings → Environment Variables), never in the repository.
@@ -78,13 +79,14 @@ Secrets live only in environment variables (Vercel → Project → Settings → 
 | `npm run db:generate` | Create a SQL migration after editing `src/db/schema.ts` |
 | `npm run db:migrate` | Apply migrations |
 | `npm run db:seed` | Load settings, delivery tiers, FAQ, pages and the Booqable catalogue snapshot (safe to re-run) |
+| `npm run db:import-invoices <file>` | Import customers and bookings parsed from Booqable invoice PDFs (JSON kept in git-ignored `data/private/`; `--dry-run` first) |
 | `npm run db:snapshot` | Re-download the public Booqable storefront (products, photos, collections) into `data/booqable` |
 
 ## Deploy (Vercel + Supabase)
 
 1. **Supabase**: create a project (region: Canada Central). Copy the *transaction pooler* connection string (Project Settings → Database). Create a **public** Storage bucket `media`. Copy the project URL and the `service_role` key (Project Settings → API).
 2. **Vercel**: import the GitHub repository, framework Next.js. Add the environment variables above for Production and Preview.
-3. From your computer (or CI) run the migrations and seed once against the Supabase database:
+3. Deploys run `npm run vercel-build`: database migrations, the non-destructive seed (creates what is missing, never overwrites the owner's edits) and the Next.js build. To run them by hand instead:
    ```bash
    DATABASE_URL="postgres://…pooler.supabase.com:6543/postgres" npm run db:migrate
    ```

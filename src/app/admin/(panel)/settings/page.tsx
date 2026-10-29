@@ -34,6 +34,7 @@ const tabs: { key: string; label: MessageKey }[] = [
   { key: "delivery", label: "settings.delivery" },
   { key: "blackouts", label: "settings.blackouts" },
   { key: "content", label: "settings.content" },
+  { key: "email", label: "settings.email" },
   { key: "staff", label: "settings.staff" },
   { key: "security", label: "settings.security" },
 ];
@@ -261,6 +262,31 @@ export default async function SettingsPage({ searchParams }: PageProps<"/admin/s
           totpEnabled: u.totpEnabled,
           lastLoginAt: u.lastLoginAt?.toISOString() ?? null,
         }))}
+      />
+    );
+  } else if (tab === "email") {
+    body = (
+      <SettingsForm
+        title={t("settings.email")}
+        settingsKey="email"
+        initial={s.email}
+        canEdit={canEdit}
+        description={
+          process.env.GMAIL_APP_PASSWORD
+            ? "Sending is connected through the Gmail account."
+            : "Sending is not connected yet: add a Gmail App Password as GMAIL_APP_PASSWORD in the hosting settings (see README). Until then emails are skipped."
+        }
+        fields={[
+          { name: "fromName", label: "Sender name", type: "text" },
+          { name: "fromAddress", label: "Send all emails from", type: "email" },
+          { name: "replyTo", label: "Customer replies go to", type: "email" },
+          {
+            name: "staffAlerts",
+            label: "Staff alerts go to",
+            type: "email",
+            hint: "New inquiries, bookings, failed payments",
+          },
+        ]}
       />
     );
   } else if (tab === "security") {

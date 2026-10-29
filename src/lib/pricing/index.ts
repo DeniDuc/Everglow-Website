@@ -217,29 +217,63 @@ export function computeQuote(input: QuoteInput): Quote {
   };
 }
 
-export type CancellationTier = { minDaysBefore: number; refundBp: number; label: string };
+export type CancellationTier = {
+  /** Applies when the customer cancels at least this many hours before delivery/pickup. */
+  minHoursBefore: number;
+  /** Share of the payments beyond the non-refundable part that is refunded to the card. */
+  refundBp: number;
+  /** Share of the payments beyond the non-refundable part given as credit for a future rental. */
+  creditBp: number;
+  /** How long the credit can be used; 0 = no limit. */
+  creditValidMonths: number;
+  /** The customer still owes the full order total (e.g. cancellation under 72 hours). */
+  fullBalanceDue: boolean;
+  label: string;
+};
+
+export type CancellationOutcome = {
+  tier: CancellationTier | null;
+  hoursBefore: number;
+  /** Kept by the business: the non-refundable part (capped at what was paid). */
+  keptCents: number;
+  refundCents: number;
+  creditCents: number;
+  /** Still owed by the customer after cancelling (only for "full balance due" tiers). */
+  balanceDueCents: number;
+};
 
 /**
- * Refund for a cancellation. The tier is picked by whole days between the cancellation
- * and the event start; the non-refundable part of the order total is always kept.
- * Staff confirm the amount before it is sent to Stripe.
+ * What happens to the money when a customer cancels (Terms & Conditions, section 13).
+ * The tier is picked by whole hours between the cancellation and the start of the rental.
+ * The non-refundable part of the order total is always kept; the rest of what was paid is
+ * refunded and/or credited according to the tier. Staff confirm before anything is processed.
  */
-export function cancellationRefund(input: {
+export function cancellationOutcome(input: {
   paidCents: number;
   totalCents: number;
   startsAt: Date;
   cancelledAt: Date;
   tiers: CancellationTier[];
   nonRefundableBp: number;
-}): { refundCents: number; tier: CancellationTier | null; daysBefore: number } {
-  const daysBefore = Math.floor((input.startsAt.getTime() - input.cancelledAt.getTime()) / DAY_MS);
+}): CancellationOutcome {
+  const hoursBefore = Math.floor((input.startsAt.getTime() - input.cancelledAt.getTime()) / (60 * 60 * 1000));
   const tier =
-    [...input.tiers].sort((a, b) => b.minDaysBefore - a.minDaysBefore).find((t) => daysBefore >= t.minDaysBefore) ??
+    [...input.tiers].sort((a, b) => b.minHoursBefore - a.minHoursBefore).find((t) => hoursBefore >= t.minHoursBefore) ??
     null;
-  if (!tier || input.paidCents <= 0) return { refundCents: 0, tier, daysBefore };
-  const kept = Math.min(input.paidCents, applyBp(input.totalCents, input.nonRefundableBp));
-  const refundable = input.paidCents - kept;
-  return { refundCents: Math.max(0, applyBp(refundable, tier.refundBp)), tier, daysBefore };
+  const paid = Math.max(0, input.paidCents);
+  const keptCents = Math.min(paid, applyBp(input.totalCents, input.nonRefundableBp));
+  const beyond = paid - keptCents;
+  if (!tier) return { tier, hoursBefore, keptCents: paid, refundCents: 0, creditCents: 0, balanceDueCents: 0 };
+  const refundCents = applyBp(beyond, tier.refundBp);
+  const creditCents = Math.min(beyond - refundCents, applyBp(beyond, tier.creditBp));
+  return {
+    tier,
+    hoursBefore,
+    keptCents: paid - refundCents - creditCents,
+    refundCents,
+    creditCents,
+    balanceDueCents: tier.fullBalanceDue ? Math.max(0, input.totalCents - paid) : 0,
+  };
 }
 
 export type DeliveryTierOption = {

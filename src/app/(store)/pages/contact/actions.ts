@@ -6,6 +6,7 @@ import { db } from "@/db";
 import { customers, inquiries } from "@/db/schema";
 import { blindIndex, sha256 } from "@/lib/crypto";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { notifyStaff } from "@/lib/email";
 import { eq } from "drizzle-orm";
 
 const schema = z.object({
@@ -47,6 +48,10 @@ export async function sendInquiry(_prev: ContactState, form: FormData): Promise<
     }
     await tx.insert(inquiries).values({ customerId: customer.id, name, email, phone: phone || null, message });
   });
-  // Staff email alert is sent once email delivery is configured (phase 6).
+  await notifyStaff(
+    `New inquiry from ${name}`,
+    `${name} <${email}>${phone ? ` · ${phone}` : ""}\n\n${message}\n\nReply to this email to answer, or see Inquiries in the admin.`,
+    email,
+  );
   return { ok: true };
 }

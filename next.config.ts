@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
-const supabaseHost = process.env.SUPABASE_URL ? new URL(process.env.SUPABASE_URL).hostname : null;
+const supabaseUrl = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseHost = supabaseUrl ? new URL(supabaseUrl).hostname : null;
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },

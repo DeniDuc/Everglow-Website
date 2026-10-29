@@ -234,6 +234,20 @@
     list-style: disc;
     padding-left: 1.25rem;
   }
+  .prose-everglow ul + ul {
+    margin-top: 0.35rem;
+  }
+  .prose-everglow ul[data-level="2"] {
+    list-style: circle;
+    padding-left: 2.5rem;
+  }
+  .prose-everglow ul[data-level="3"] {
+    list-style: square;
+    padding-left: 3.75rem;
+  }
+  .prose-everglow h2[id] {
+    scroll-margin-top: 6rem;
+  }
   .prose-everglow li + li {
     margin-top: 0.35rem;
   }

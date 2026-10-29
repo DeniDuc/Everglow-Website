@@ -376,58 +376,83 @@ export function CancellationEditor({ initial, canEdit }: { initial: Tiers; canEd
   const [tiers, setTiers] = useState(initial);
   const [status, setStatus] = useState<Status>(null);
   const [pending, start] = useTransition();
+  const patch = (i: number, p: Partial<Tiers[number]>) =>
+    setTiers((l) => l.map((x, idx) => (idx === i ? { ...x, ...p } : x)));
   return (
-    <Card title="Cancellation refunds">
+    <Card title="Cancellations (Terms section 13)">
       <p className="mb-4 text-sm text-admin-muted">
-        Refund share of what the customer paid, by how many days before the event they cancel. The non-refundable part
-        of the order (Payments settings) is always kept. Staff confirm every refund. Update to match Terms &amp;
-        Conditions section 13.
+        What happens to the money when a customer cancels, by notice before delivery/pickup. The non-refundable part of
+        the order (Payments settings, 25%) is always kept; the percentages below apply to what was paid beyond it. Staff
+        confirm every refund or credit.
       </p>
-      <div className="space-y-2">
+      <div className="space-y-3">
         {tiers.map((t, i) => (
-          <div key={i} className="flex flex-wrap items-center gap-2 text-sm">
-            <span>From</span>
-            <Input
-              type="number"
-              min={0}
-              value={t.minDaysBefore}
-              onChange={(e) =>
-                setTiers((l) => l.map((x, idx) => (idx === i ? { ...x, minDaysBefore: Number(e.target.value) } : x)))
-              }
-              className="w-20"
-              disabled={!canEdit}
-            />
-            <span>days before → refund</span>
-            <Input
-              type="number"
-              min={0}
-              max={100}
-              value={t.refundBp / 100}
-              onChange={(e) =>
-                setTiers((l) =>
-                  l.map((x, idx) => (idx === i ? { ...x, refundBp: Math.round(Number(e.target.value) * 100) } : x)),
-                )
-              }
-              className="w-20"
-              disabled={!canEdit}
-            />
-            <span>%</span>
-            <Input
-              value={t.label}
-              onChange={(e) => setTiers((l) => l.map((x, idx) => (idx === i ? { ...x, label: e.target.value } : x)))}
-              className="w-64"
-              disabled={!canEdit}
-            />
-            {canEdit && (
-              <button
-                type="button"
-                onClick={() => setTiers((l) => l.filter((_, idx) => idx !== i))}
-                className="rounded p-2 text-red-600 hover:bg-red-50"
-                aria-label="Remove tier"
-              >
-                <Trash2 className="size-4" />
-              </button>
-            )}
+          <div key={i} className="rounded-md border border-admin-line p-3">
+            <div className="flex flex-wrap items-end gap-3 text-sm">
+              <Field label="From (hours before)">
+                <Input
+                  type="number"
+                  min={0}
+                  value={t.minHoursBefore}
+                  onChange={(e) => patch(i, { minHoursBefore: Number(e.target.value) })}
+                  className="w-28"
+                  disabled={!canEdit}
+                />
+              </Field>
+              <Field label="Refund %">
+                <Input
+                  type="number"
+                  min={0}
+                  max={100}
+                  value={t.refundBp / 100}
+                  onChange={(e) => patch(i, { refundBp: Math.round(Number(e.target.value) * 100) })}
+                  className="w-20"
+                  disabled={!canEdit}
+                />
+              </Field>
+              <Field label="Credit %">
+                <Input
+                  type="number"
+                  min={0}
+                  max={100}
+                  value={t.creditBp / 100}
+                  onChange={(e) => patch(i, { creditBp: Math.round(Number(e.target.value) * 100) })}
+                  className="w-20"
+                  disabled={!canEdit}
+                />
+              </Field>
+              <Field label="Credit valid (months, 0 = no limit)">
+                <Input
+                  type="number"
+                  min={0}
+                  value={t.creditValidMonths}
+                  onChange={(e) => patch(i, { creditValidMonths: Number(e.target.value) })}
+                  className="w-24"
+                  disabled={!canEdit}
+                />
+              </Field>
+              <div className="pb-1">
+                <Checkbox
+                  label="Full balance still due"
+                  checked={t.fullBalanceDue}
+                  onChange={(e) => patch(i, { fullBalanceDue: e.target.checked })}
+                  disabled={!canEdit}
+                />
+              </div>
+              {canEdit && (
+                <button
+                  type="button"
+                  onClick={() => setTiers((l) => l.filter((_, idx) => idx !== i))}
+                  className="ml-auto rounded p-2 text-red-600 hover:bg-red-50"
+                  aria-label="Remove rule"
+                >
+                  <Trash2 className="size-4" />
+                </button>
+              )}
+            </div>
+            <Field label="Description" className="mt-2">
+              <Input value={t.label} onChange={(e) => patch(i, { label: e.target.value })} disabled={!canEdit} />
+            </Field>
           </div>
         ))}
       </div>
@@ -436,9 +461,21 @@ export function CancellationEditor({ initial, canEdit }: { initial: Tiers; canEd
           <Button
             variant="ghost"
             className="mt-2"
-            onClick={() => setTiers((l) => [...l, { minDaysBefore: 0, refundBp: 0, label: "New tier" }])}
+            onClick={() =>
+              setTiers((l) => [
+                ...l,
+                {
+                  minHoursBefore: 0,
+                  refundBp: 0,
+                  creditBp: 0,
+                  creditValidMonths: 0,
+                  fullBalanceDue: false,
+                  label: "New rule",
+                },
+              ])
+            }
           >
-            <Plus className="size-4" /> Add tier
+            <Plus className="size-4" /> Add rule
           </Button>
           <SaveBar
             pending={pending}

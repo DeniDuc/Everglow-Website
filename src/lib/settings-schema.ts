@@ -74,13 +74,28 @@ export const deliverySchema = z.object({
 });
 
 export const cancellationTierSchema = z.object({
-  /** Applies when the cancellation happens at least this many days before the event. */
-  minDaysBefore: z.number().int().min(0),
-  /** Share of the amount paid that is refunded (before the non-refundable part). */
+  /** Applies when the cancellation happens at least this many hours before delivery/pickup. */
+  minHoursBefore: z.number().int().min(0),
+  /** Share of payments beyond the non-refundable part refunded to the card. */
   refundBp: z.number().int().min(0).max(10000),
+  /** Share of payments beyond the non-refundable part given as credit toward a future rental. */
+  creditBp: z.number().int().min(0).max(10000),
+  creditValidMonths: z.number().int().min(0).max(60),
+  /** The full order total is still owed. */
+  fullBalanceDue: z.boolean(),
   label: z.string(),
 });
 export const cancellationSchema = z.object({ tiers: z.array(cancellationTierSchema) });
+
+export const emailSchema = z.object({
+  /** Shown as the sender name in customers' inboxes. */
+  fromName: z.string(),
+  /** Every email (confirmations, reminders, invoices, staff alerts) is sent from this address. */
+  fromAddress: z.string().email(),
+  replyTo: z.string().email(),
+  /** Where new-booking, inquiry and payment alerts go. */
+  staffAlerts: z.string().email(),
+});
 
 export const securitySchema = z.object({
   /** Every staff account must set up an authenticator app. */
@@ -101,6 +116,7 @@ export const settingsSchemas = {
   delivery: deliverySchema,
   cancellation: cancellationSchema,
   security: securitySchema,
+  email: emailSchema,
 } as const;
 
 export type SettingsKey = keyof typeof settingsSchemas;
@@ -146,7 +162,7 @@ export const defaultSettings: Settings = {
   },
   pricing: {
     defaultPeriodDays: 3,
-    extraDayBp: 3333,
+    extraDayBp: 3300,
     damageProtectionBp: 1000,
     damageProtectionDefaultOn: true,
     taxesEnabled: false,
@@ -158,11 +174,40 @@ export const defaultSettings: Settings = {
     deliveryNote:
       "All standard deliveries are curbside. We contact you the Sunday before your event with exact delivery times.",
   },
-  security: { require2fa: false, sessionIdleHours: 12 },
+  security: { require2fa: true, sessionIdleHours: 12 },
+  email: {
+    fromName: "Everglow Events & Tents",
+    fromAddress: "eventseverglow@gmail.com",
+    replyTo: "eventseverglow@gmail.com",
+    staffAlerts: "eventseverglow@gmail.com",
+  },
   cancellation: {
+    // Terms & Conditions section 13 (2026): nothing is refunded in cash; credit depends on notice.
     tiers: [
-      { minDaysBefore: 30, refundBp: 10000, label: "30+ days before the event" },
-      { minDaysBefore: 0, refundBp: 0, label: "Less than 30 days before the event" },
+      {
+        minHoursBefore: 14 * 24,
+        refundBp: 0,
+        creditBp: 10000,
+        creditValidMonths: 0,
+        fullBalanceDue: false,
+        label: "More than 14 days before: payments beyond the 25% may be credited toward a future rental",
+      },
+      {
+        minHoursBefore: 72,
+        refundBp: 0,
+        creditBp: 5000,
+        creditValidMonths: 6,
+        fullBalanceDue: false,
+        label: "72 hours to 14 days before: 50% credit of payments beyond the 25%, valid 6 months",
+      },
+      {
+        minHoursBefore: 0,
+        refundBp: 0,
+        creditBp: 0,
+        creditValidMonths: 0,
+        fullBalanceDue: true,
+        label: "Less than 72 hours before: no refund or credit, full balance due",
+      },
     ],
   },
 };
